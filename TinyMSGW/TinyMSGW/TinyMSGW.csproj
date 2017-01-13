@@ -49,12 +49,15 @@
     <Compile Include="Adapter\OnlineAdapterImpl.cs" />
     <Compile Include="Entity\RentLog.cs" />
     <Compile Include="Entity\StoringBook.cs" />
+    <Compile Include="Enum\RunTypeEnum.cs" />
     <Compile Include="Enum\UserTypeEnum.cs" />
+    <Compile Include="Utils\CommonUtil.cs" />
+    <Compile Include="Utils\IniUtil.cs" />
+    <Compile Include="Utils\LogUtil.cs" />
     <Compile Include="ViewModel\GlobalDataPackage.cs" />
+    <Compile Include="ViewModel\InitManager.cs" />
     <Compile Include="ViewModel\LibraryManager.cs" />
-    <Compile Include="ViewModel\UsercardManager.cs" />
     <Compile Include="ViewModel\UserManager.cs" />
-    <Compile Include="ViewModel\WarehouseManager.cs" />
     <Compile Include="Entity\Book.cs" />
     <Compile Include="Entity\Library.cs" />
     <Compile Include="Entity\User.cs" />
@@ -68,8 +71,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\DBUtils.cs" />
-    <Compile Include="Utils\LocalIOUtils.cs" />
+    <Compile Include="Utils\DBUtil.cs" />
+    <Compile Include="Utils\LocalIOUtil.cs" />
+    <EmbeddedResource Include="Forms\First.resx">
+      <DependentUpon>First.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
