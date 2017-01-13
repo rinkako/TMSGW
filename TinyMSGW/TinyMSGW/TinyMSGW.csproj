@@ -48,6 +48,8 @@
     <Compile Include="Adapter\LocalStoreAdapterImpl.cs" />
     <Compile Include="Adapter\OnlineAdapterImpl.cs" />
     <Compile Include="Entity\RentLog.cs" />
+    <Compile Include="Entity\StoringBook.cs" />
+    <Compile Include="Enum\UserTypeEnum.cs" />
     <Compile Include="ViewModel\GlobalDataPackage.cs" />
     <Compile Include="ViewModel\LibraryManager.cs" />
     <Compile Include="ViewModel\UsercardManager.cs" />
