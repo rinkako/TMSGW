@@ -6,10 +6,10 @@ using System.Text;
 namespace TinyMSGW.Adapter
 {
     /// <summary>
-    /// 接口：程序实体和稳定储存器实体之间的IO操作的接口
+    /// 实现单机模式的控制器
     /// </summary>
-    internal interface IAdapter
-    {
+    //internal sealed class LocalAdapterImpl : IActionAdapter
+    //{
 
-    }
+    //}
 }

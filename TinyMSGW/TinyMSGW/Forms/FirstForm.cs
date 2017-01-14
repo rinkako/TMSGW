@@ -15,12 +15,12 @@ namespace TinyMSGW.Forms
     /// <summary>
     /// 窗体：首次使用
     /// </summary>
-    public partial class First : Form
+    public partial class FirstForm : Form
     {
         /// <summary>
         /// 构造器
         /// </summary>
-        public First()
+        public FirstForm()
         {
             InitializeComponent();
             this.Height = 272;

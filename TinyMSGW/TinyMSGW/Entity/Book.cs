@@ -40,6 +40,12 @@ namespace TinyMSGW.Entity
         public int PublishYear { get; set; }
 
         /// <summary>
+        /// 获取或设置书的价值
+        /// </summary>
+        [DefaultValue(0)]
+        public double Value { get; set; }
+
+        /// <summary>
         /// 获取或设置目前书籍所在图书馆的位置
         /// </summary>
         [DefaultValue("")]

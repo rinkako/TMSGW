@@ -1,6 +1,6 @@
 ﻿namespace TinyMSGW.Forms
 {
-    partial class First
+    partial class FirstForm
     {
         /// <summary>
         /// Required designer variable.

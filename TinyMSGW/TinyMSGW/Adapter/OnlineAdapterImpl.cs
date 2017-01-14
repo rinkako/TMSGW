@@ -6,9 +6,9 @@ using System.Text;
 namespace TinyMSGW.Adapter
 {
     /// <summary>
-    /// 实现联机储存模式的IO控制器
+    /// 实现联机模式的控制器
     /// </summary>
-    internal sealed class OnlineAdapterImpl : IAdapter
-    {
-    }
+    //internal sealed class OnlineAdapterImpl : IActionAdapter
+    //{
+    //}
 }
