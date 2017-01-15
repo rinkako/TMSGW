@@ -61,7 +61,7 @@ namespace TinyMSGW.Forms
             // 选择单机
             if (this.radioButton1.Checked)
             {
-                InitManager.InitFirstTimeSettings(true, paraDict);
+                SettingManager.InitFirstTimeSettings(true, paraDict);
             }
             // 选择联机
             else
@@ -82,7 +82,7 @@ namespace TinyMSGW.Forms
                 paraDict.Add("DBName", this.textBox2.Text.Trim());
                 paraDict.Add("DBUsername", this.textBox3.Text.Trim());
                 paraDict.Add("DBPassword", this.textBox4.Text);
-                InitManager.InitFirstTimeSettings(false, paraDict);
+                SettingManager.InitFirstTimeSettings(false, paraDict);
             }
         }
     }

@@ -192,12 +192,30 @@ namespace TinyMSGW.Adapter
         /// <param name="allowLogin">[out] 是否允许登录</param>
         /// <returns>操作成功与否（此处表现为能否成功运行验证）</returns>
         bool LoginValid(string username, string passwordWithSHA1, out bool allowLogin);
+        
+        /// <summary>
+        /// 登陆一个用户，用于成功验证之后
+        /// </summary>
+        /// <param name="username">要登录的用户名</param>
+        /// <returns>操作成功与否</returns>
+        bool LoginSuccess(string username);
 
         /// <summary>
         /// 登出系统
         /// </summary>
         /// <returns>操作成功与否</returns>
         bool Logout();
+
+        /// <summary>
+        /// 结束应用程序
+        /// </summary>
+        void Terminate();
+
+        /// <summary>
+        /// 将数据写入稳定储存器
+        /// </summary>
+        /// <returns>操作成功与否</returns>
+        bool WriteDataToStableStorage();
         #endregion
     }
 }

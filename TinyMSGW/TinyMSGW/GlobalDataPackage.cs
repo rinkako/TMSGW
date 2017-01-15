@@ -17,32 +17,32 @@ namespace TinyMSGW
         /// <summary>
         /// 联机模式下数据库服务器IP地址
         /// </summary>
-        public static string DBServerIPAddress;
+        public static string DBServerIPAddress = "127.0.0.0";
 
         /// <summary>
         /// 联机模式下数据库连接用户名
         /// </summary>
-        public static string DBUsername;
+        public static string DBUsername = String.Empty;
 
         /// <summary>
         /// 联机模式下数据库连接密码
         /// </summary>
-        public static string DBPassword;
+        public static string DBPassword = String.Empty;
 
         /// <summary>
         /// 联机模式下数据库名
         /// </summary>
-        public static string DBName;
+        public static string DBName = String.Empty;
 
         /// <summary>
         /// 系统管理员用户名
         /// </summary>
-        public static string AdminName;
+        public static string AdminName = String.Empty;
 
         /// <summary>
         /// 系统管理员密码的SHA1
         /// </summary>
-        public static string AdminPasswordSHA1;
+        public static string AdminPasswordSHA1 = String.Empty;
 
         /// <summary>
         /// 还书期限天数
@@ -52,7 +52,7 @@ namespace TinyMSGW
         /// <summary>
         /// 延迟归还书籍的每日滞纳费用
         /// </summary>
-        public static double DelayFeeADay = 0.5;
+        public static double DelayFeeADay = 0.1;
 
         /// <summary>
         /// 当前使用系统的用户
@@ -63,7 +63,7 @@ namespace TinyMSGW
         /// <summary>
         /// 本地日志的首行
         /// </summary>
-        public static readonly string LogHello = "===BEGIN_OF_LOG===";
+        public static readonly string LogAloha = "===BEGIN_OF_LOG===";
 
         /// <summary>
         /// 本地日志文件名

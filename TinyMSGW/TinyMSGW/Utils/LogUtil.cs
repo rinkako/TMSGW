@@ -20,7 +20,7 @@ namespace TinyMSGW.Utils
             {
                 FileStream fs = new FileStream(LocalIOUtil.ParseURItoURL(GlobalDataPackage.LogFileName, true), FileMode.CreateNew);
                 StreamWriter sw = new StreamWriter(fs);
-                sw.WriteLine(GlobalDataPackage.LogHello);
+                sw.WriteLine(GlobalDataPackage.LogAloha);
                 sw.Close();
                 fs.Close();
             }

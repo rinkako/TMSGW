@@ -20,11 +20,31 @@ namespace TinyMSGW.ViewModel
         /// <returns>是否为替换操作</returns>
         public bool SetLibraryInstance(Library instance)
         {
+            Utils.LogUtil.Log("ACK: Library instance replaced.");
             bool retFlag = this.ourLibrary != null;
             this.ourLibrary = instance;
             return retFlag;
         }
+
+        /// <summary>
+        /// 获取图书馆实体
+        /// </summary>
+        /// <returns>图书馆实例的引用</returns>
+        public Library GetLibraryInstance()
+        {
+            return this.ourLibrary;
+        }
         
+        /// <summary>
+        /// 获取一个用户
+        /// </summary>
+        /// <param name="username">用户名</param>
+        /// <returns>该用户名对应的用户实例</returns>
+        public User GetUser(string username)
+        {
+            return this.ourLibrary.UserList.Find((x) => x.UserName == username);
+        }
+
         /// <summary>
         /// 私有的构造器
         /// </summary>

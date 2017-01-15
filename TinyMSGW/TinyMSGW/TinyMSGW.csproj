@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adapter\AdapterFactory.cs" />
     <Compile Include="Adapter\IActionAdapter.cs" />
     <Compile Include="Adapter\LocalAdapterImpl.cs" />
     <Compile Include="Adapter\OnlineAdapterImpl.cs" />
@@ -67,7 +68,7 @@
     <Compile Include="Utils\IniUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />
     <Compile Include="GlobalDataPackage.cs" />
-    <Compile Include="ViewModel\InitManager.cs" />
+    <Compile Include="ViewModel\SettingManager.cs" />
     <Compile Include="ViewModel\LibraryManager.cs" />
     <Compile Include="ViewModel\UserManager.cs" />
     <Compile Include="Entity\Book.cs" />
@@ -87,6 +88,9 @@
     <Compile Include="Utils\LocalIOUtil.cs" />
     <EmbeddedResource Include="Forms\FirstForm.resx">
       <DependentUpon>FirstForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\LoginForm.resx">
+      <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
