@@ -46,6 +46,15 @@ namespace TinyMSGW.ViewModel
         }
 
         /// <summary>
+        /// 将一个用户加到图书馆的用户列表中
+        /// </summary>
+        /// <param name="user">用户实例</param>
+        public void AddToUserList(User user)
+        {
+            this.ourLibrary.UserList.Add(user);
+        }
+
+        /// <summary>
         /// 私有的构造器
         /// </summary>
         private LibraryManager()
