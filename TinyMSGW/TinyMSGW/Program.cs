@@ -13,18 +13,20 @@ namespace TinyMSGW
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            // 初次运行则要弹出设置窗体
-            if (ViewModel.SettingManager.IsFirstTimeRun())
-            {
-                Application.Run(new Forms.FirstForm());
-            }
-            // 否则，加载程序设置，并进入登录窗口
-            else
-            {
-                ViewModel.SettingManager.ReadSettingToGDP();
-                ViewModel.SettingManager.ReadDataToMemory();
-                Application.Run(new Forms.LoginForm());
-            }
+            Application.Run(new Forms.MainForm());
+
+            //// 初次运行则要弹出设置窗体
+            //if (ViewModel.SettingManager.IsFirstTimeRun())
+            //{
+            //    Application.Run(new Forms.FirstForm());
+            //}
+            //// 否则，加载程序设置，并进入登录窗口
+            //else
+            //{
+            //    ViewModel.SettingManager.ReadSettingToGDP();
+            //    ViewModel.SettingManager.ReadDataToMemory();
+            //    Application.Run(new Forms.LoginForm());
+            //}
         }
     }
 }

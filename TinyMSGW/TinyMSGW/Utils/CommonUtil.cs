@@ -36,5 +36,25 @@ namespace TinyMSGW.Utils
             (sha1 as IDisposable).Dispose();
             return Convert.ToBase64String(str2);
         }
+
+        /// <summary>
+        /// 将用户类型枚举转化为用户可理解字符串
+        /// </summary>
+        /// <param name="type">枚举类型</param>
+        /// <returns>用户可理解文本</returns>
+        public static string ParseUserETypeToCString(Enums.UserType type)
+        {
+            switch (type)
+            {
+                case Enums.UserType.Admin:
+                    return "管理员";
+                case Enums.UserType.Keeper:
+                    return "仓库管理人";
+                case Enums.UserType.Librarian:
+                    return "图书馆柜员";
+                default:
+                    return "";
+            }
+        }
     }
 }
