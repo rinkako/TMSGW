@@ -20,6 +20,21 @@ namespace TinyMSGW.Entity
         }
 
         /// <summary>
+        /// 成功缴纳滞纳金
+        /// </summary>
+        public void PaidDelayFeeSucceed()
+        {
+            this.BorrowingList.ForEach((x) =>
+            {
+                if (x.IsAlreadyReturned)
+                {
+                    x.IsPaidDelayFee = true;
+                }
+            });
+            this.DelayFee = 0;
+        }
+
+        /// <summary>
         /// 获取或设置借书卡ID
         /// </summary>
         [DefaultValue(0)]
@@ -69,7 +84,7 @@ namespace TinyMSGW.Entity
                 this.iDelayfee = 0;
                 this.BorrowingList.ForEach((x) =>
                 {
-                    if (x.OughtReturnTimestamp < DateTime.Now)
+                    if (x.OughtReturnTimestamp < DateTime.Now && x.IsPaidDelayFee == false)
                     {
                         this.iDelayfee += GlobalDataPackage.DelayFeeADay * (DateTime.Now - x.OughtReturnTimestamp).Days;
                     }
@@ -81,7 +96,7 @@ namespace TinyMSGW.Entity
                 this.iDelayfee = value;
             }
         }
-        
+
         /// <summary>
         /// 借书卡的滞纳金
         /// </summary>

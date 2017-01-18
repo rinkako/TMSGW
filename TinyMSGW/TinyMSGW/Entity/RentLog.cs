@@ -54,6 +54,12 @@ namespace TinyMSGW.Entity
         public DateTime? ActualReturnTimestamp { get; set; }
 
         /// <summary>
+        /// 获取或设置是否已经缴纳滞纳金
+        /// </summary>
+        [DefaultValue(false)]
+        public bool IsPaidDelayFee { get; set; }
+
+        /// <summary>
         /// 获取这本借出的书是否已经还了
         /// </summary>
         public bool IsAlreadyReturned

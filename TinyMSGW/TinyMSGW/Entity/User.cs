@@ -1,6 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
-using TinyMSGW.Enum;
+using TinyMSGW.Enums;
 
 namespace TinyMSGW.Entity
 {

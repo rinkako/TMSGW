@@ -1,5 +1,5 @@
 ﻿using System;
-using TinyMSGW.Enum;
+using TinyMSGW.Enums;
 using TinyMSGW.Entity;
 
 namespace TinyMSGW

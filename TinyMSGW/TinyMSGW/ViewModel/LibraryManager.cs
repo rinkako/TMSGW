@@ -46,6 +46,71 @@ namespace TinyMSGW.ViewModel
         }
 
         /// <summary>
+        /// 通过用户名取得她的借书卡
+        /// </summary>
+        /// <param name="username">用户名</param>
+        /// <returns>该用户的借书卡</returns>
+        public Usercard GetUsercardByUsername(string username)
+        {
+            var usr = this.ourLibrary.UserList.Find((x) => x.UserName == username);
+            if (usr != null)
+            {
+                return usr.Card;
+            }
+            return null;
+        }
+
+
+        /// <summary>
+        /// 获取一个仓库
+        /// </summary>
+        /// <param name="id">仓库id</param>
+        /// <returns>仓库的实例</returns>
+        public Warehouse GetWarehouse(int id)
+        {
+            return this.ourLibrary.WarehouseList.Find((x) => x.WarehouseID == id);
+        }
+
+        /// <summary>
+        /// 获取一本书的实例
+        /// </summary>
+        /// <param name="isbn">书的唯一标示ISBN</param>
+        /// <returns>书在图书馆的实例</returns>
+        public Book GetBook(string isbn)
+        {
+            return this.ourLibrary.OnShopBookList.Find((x) => x.ISBN == isbn);
+        }
+
+        /// <summary>
+        /// 上架一本书
+        /// </summary>
+        /// <param name="book">要上架的书籍</param>
+        public void AddBook(Book book)
+        {
+            this.ourLibrary.OnShopBookList.Add(book);
+        }
+
+        /// <summary>
+        /// 删除一本书
+        /// </summary>
+        /// <param name="book">书籍实例</param>
+        /// <returns>操作成功与否</returns>
+        public bool DeleteBook(Book book)
+        {
+            return this.ourLibrary.OnShopBookList.Remove(book);
+        }
+
+        /// <summary>
+        /// 删除一个用户
+        /// </summary>
+        /// <param name="username">用户名</param>
+        /// <returns>操作成功与否</returns>
+        public bool DeleteUser(User user)
+        {
+            return this.ourLibrary.UserList.Remove(user);
+        }
+
+        /// <summary>
         /// 将一个用户加到图书馆的用户列表中
         /// </summary>
         /// <param name="user">用户实例</param>

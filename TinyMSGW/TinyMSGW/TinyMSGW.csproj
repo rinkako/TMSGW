@@ -50,8 +50,8 @@
     <Compile Include="Adapter\OnlineAdapterImpl.cs" />
     <Compile Include="Entity\RentLog.cs" />
     <Compile Include="Entity\StoringBook.cs" />
-    <Compile Include="Enum\RunTypeEnum.cs" />
-    <Compile Include="Enum\UserTypeEnum.cs" />
+    <Compile Include="Enums\RunTypeEnum.cs" />
+    <Compile Include="Enums\UserTypeEnum.cs" />
     <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>

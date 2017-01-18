@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TinyMSGW.Entity;
-using TinyMSGW.Enum;
+using TinyMSGW.Enums;
 
 namespace TinyMSGW.Adapter
 {
@@ -12,127 +12,122 @@ namespace TinyMSGW.Adapter
     /// </summary>
     internal sealed class OnlineAdapterImpl : IActionAdapter
     {
-        bool IActionAdapter.AddUser(string name, UserType type, Dictionary<string, string> paras, out User user)
+        public bool AddUser(string name, UserType type, Dictionary<string, string> paras, out User user)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.CustomerCancelUsercard(User user, Usercard card)
+        public bool CustomerCancelUsercard(User user, Usercard card)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.CustomerHandleUsercard(User user, out Usercard card)
+        public bool CustomerHandleUsercard(User user, out Usercard card)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.CustomerRentBook(Book book, Usercard card)
+        public bool CustomerMissAndPayForBook(User user, Book book, out double pay)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.CustomerReturnBook(Book book, Usercard card)
+        public bool CustomerRentBook(Book book, Usercard card)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.DeleteUser(User user)
+        public bool CustomerReturnBook(Book book, Usercard card)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.EditBook(Book book, Book newbookDescriptor)
+        public bool DeleteUser(User user)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.EditStoringBook(Warehouse whouse, StoringBook book, StoringBook newbookDescriptor)
+        public bool EditBook(Book book, Book newbookDescriptor)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.EditUser(User user, UserType newType, Dictionary<string, string> paras)
+        public bool EditStoringBook(Warehouse whouse, StoringBook book, StoringBook newbookDescriptor)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.KeeperAddBook(Warehouse whouse, Book descriptor, out StoringBook sbook)
+        public bool EditUser(User user, UserType newType, Dictionary<string, string> paras)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.KeeperRemoveBook(Warehouse whouse, StoringBook sbook)
+        public bool KeeperAddBook(Warehouse whouse, Book descriptor, int numberToStore, out StoringBook sbook)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.KeeperShopBook(Warehouse whouse, StoringBook sbook)
+        public bool KeeperRemoveBook(Warehouse whouse, StoringBook sbook)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.LibrarianAddBook(Book book)
+        public bool KeeperShopBook(Warehouse whouse, StoringBook sbook, int number)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.LibrarianRecieveDelayFee(Usercard card)
+        public bool LibrarianAddBook(Book descriptor)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.LibrarianRemoveBook(Book book)
+        public bool LibrarianRecieveDelayFee(Usercard card)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.LibrarianRestoreBook(Book book)
+        public bool LibrarianRemoveBook(Book book)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.LoginSuccess(string username)
+        public bool LibrarianRestoreBook(Book book)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.LoginValid(string username, string passwordWithSHA1, out bool allowLogin)
+        public bool LoginSuccess(string username)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.Logout()
+        public bool LoginValid(string username, string passwordWithSHA1, out bool allowLogin)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.RetrieveBook(Book book, out Dictionary<string, string> descriptor)
+        public bool Logout()
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.RetrieveBookNumber(Book book, out int count)
+        public bool RetrieveDelayFee(Usercard card, out double fee)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.RetrieveDelayFee(Usercard card, out double fee)
+        public bool RetrieveUser(string username, out Dictionary<string, string> descriptor)
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.RetrieveUser(User user, out Dictionary<string, string> descriptor)
+        public void Terminate()
         {
             throw new NotImplementedException();
         }
 
-        bool IActionAdapter.WriteDataToStableStorage()
-        {
-            throw new NotImplementedException();
-        }
-
-        void IActionAdapter.Terminate()
+        public bool WriteDataToStableStorage()
         {
             throw new NotImplementedException();
         }

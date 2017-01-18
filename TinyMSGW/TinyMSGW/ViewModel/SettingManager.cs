@@ -101,7 +101,7 @@ namespace TinyMSGW.ViewModel
             try
             {
                 IniUtil ini = new IniUtil(LocalIOUtil.ParseURItoURL(GlobalDataPackage.SettingFileName, true));
-                GlobalDataPackage.RunType = ini.IniReadValue("MSGW", "RunType") == "LOCAL" ? Enum.RunTypeEnum.Local : Enum.RunTypeEnum.Online;
+                GlobalDataPackage.RunType = ini.IniReadValue("MSGW", "RunType") == "LOCAL" ? Enums.RunTypeEnum.Local : Enums.RunTypeEnum.Online;
                 GlobalDataPackage.AdminName = ini.IniReadValue("MSGW", "AdminName");
                 GlobalDataPackage.AdminPasswordSHA1 = ini.IniReadValue("MSGW", "AdminPasswordSHA1");
                 GlobalDataPackage.ReturnDaySpan = Convert.ToInt32(ini.IniReadValue("MSGW", "ReturnDaySpan"));
@@ -113,7 +113,7 @@ namespace TinyMSGW.ViewModel
                 GlobalDataPackage.GlobalCounterUserID = Convert.ToInt32(ini.IniReadValue("MSGW", "GlobalCounterUserID"));
                 GlobalDataPackage.GlobalCounterWarehouseID = Convert.ToInt32(ini.IniReadValue("MSGW", "GlobalCounterWarehouseID"));
                 // 在线模式才需要加载服务器信息
-                if (GlobalDataPackage.RunType == Enum.RunTypeEnum.Online)
+                if (GlobalDataPackage.RunType == Enums.RunTypeEnum.Online)
                 {
                     GlobalDataPackage.DBServerIPAddress = ini.IniReadValue("MSGW", "DBServerIPAddress");
                     GlobalDataPackage.DBName = ini.IniReadValue("MSGW", "DBName");
@@ -140,7 +140,7 @@ namespace TinyMSGW.ViewModel
             try
             {
                 IniUtil ini = new IniUtil(LocalIOUtil.ParseURItoURL(GlobalDataPackage.SettingFileName, true));
-                if (GlobalDataPackage.RunType == Enum.RunTypeEnum.Local)
+                if (GlobalDataPackage.RunType == Enums.RunTypeEnum.Local)
                 {
                     ini.IniWriteValue("MSGW", "RunType", "LOCAL");
                 }
@@ -177,7 +177,7 @@ namespace TinyMSGW.ViewModel
         public static bool ReadDataToMemory()
         {
             // 单机模式的数据读取直接在磁盘上进行
-            if (GlobalDataPackage.RunType == Enum.RunTypeEnum.Local)
+            if (GlobalDataPackage.RunType == Enums.RunTypeEnum.Local)
             {
                 // 此刻肯定是首次初始化完毕的了，因此不应该没有data文件
                 if (File.Exists(LocalIOUtil.ParseURItoURL(GlobalDataPackage.DataFileName, true)) == false)

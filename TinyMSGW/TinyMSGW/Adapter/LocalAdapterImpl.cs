@@ -5,7 +5,7 @@ using System.Text;
 using TinyMSGW.ViewModel;
 using TinyMSGW.Entity;
 using TinyMSGW.Utils;
-using TinyMSGW.Enum;
+using TinyMSGW.Enums;
 using GDP = TinyMSGW.GlobalDataPackage;
 
 namespace TinyMSGW.Adapter
@@ -80,67 +80,244 @@ namespace TinyMSGW.Adapter
 
         public bool CustomerRentBook(Book book, Usercard card)
         {
-            throw new NotImplementedException();
+            // 有欠款不能借
+            if (card.DelayFee == 0)
+            {
+                // 书的库存减少一本
+                book.NumberInLibrary--;
+                // 书的借出数多一本
+                book.NumberInRenting++;
+                // 把书放入借书卡中生成借书记录
+                RentLog rlog = new RentLog()
+                {
+                    RentID = GDP.GlobalCounterRentLogID++,
+                    BorrowTimestamp = DateTime.Now,
+                    OughtReturnTimestamp = DateTime.Now.AddDays(GDP.ReturnDaySpan),
+                    RentBookISBN = book.ISBN,
+                    BorrowUsercardID = card.UsercardID
+                };
+                card.BorrowingList.Add(rlog);
+                return true;
+            }
+            return false;
         }
 
         public bool CustomerReturnBook(Book book, Usercard card)
         {
-            throw new NotImplementedException();
+            // 有欠款不能还
+            if (card.DelayFee == 0)
+            {
+                // 书的库存增加一本
+                book.NumberInLibrary++;
+                // 书的借出数少一本
+                book.NumberInRenting--;
+                // 将借书记录标定为已归还
+                RentLog rlog = card.BorrowingList.Find((x) => x.RentBookISBN == book.ISBN);
+                rlog.ActualReturnTimestamp = DateTime.Now;
+                return true;
+            }
+            return false;
+        }
+
+        public bool CustomerMissAndPayForBook(User user, Book book, out double pay)
+        {
+            // 注销借书记录
+            Usercard ucard = user.Card;
+            RentLog rlog = ucard.BorrowingList.Find((x) => x.RentBookISBN == book.ISBN);
+            // 直接记为按时归还
+            rlog.ActualReturnTimestamp = rlog.OughtReturnTimestamp;
+            // 书的借出计数少一，但库存不增加
+            book.NumberInRenting--;
+            // 输出需要赔偿的价钱
+            pay = book.Value;
+            return true;
         }
 
         public bool DeleteUser(User user)
         {
-            throw new NotImplementedException();
+            // 权限检查
+            if (GDP.CurrentUser.Type == UserType.Admin)
+            {
+                User cuser = this.libMana.GetUser(user.UserName);
+                // 系统管理员或者自己不可以被删掉
+                if (cuser == null || cuser.Type == UserType.Admin ||
+                    cuser.UserID == GDP.CurrentUser.UserID)
+                {
+                    return false;
+                }
+                // 移除用户（将用户设置为无效的）
+                user.UserValid = false;
+                return true;
+            }
+            return false;
         }
 
         public bool EditBook(Book book, Book newbookDescriptor)
         {
-            throw new NotImplementedException();
+            // 依照描述子更新书的信息
+            book.Author = newbookDescriptor.Author;
+            book.ISBN = newbookDescriptor.ISBN;
+            book.IsRemoved = newbookDescriptor.IsRemoved;
+            book.LocationOfLibrary = newbookDescriptor.LocationOfLibrary;
+            book.Name = newbookDescriptor.Name;
+            book.NumberInLibrary = newbookDescriptor.NumberInLibrary;
+            book.NumberInRenting = newbookDescriptor.NumberInRenting;
+            book.PublishYear = newbookDescriptor.PublishYear;
+            book.StoreIntoLibraryTimestamp = newbookDescriptor.StoreIntoLibraryTimestamp;
+            book.Type = newbookDescriptor.Type;
+            book.Value = newbookDescriptor.Value;
+            return true;
         }
 
         public bool EditStoringBook(Warehouse whouse, StoringBook book, StoringBook newbookDescriptor)
         {
-            throw new NotImplementedException();
+            // 依照描述子更新书的信息
+            book.Author = newbookDescriptor.Author;
+            book.ISBN = newbookDescriptor.ISBN;
+            book.Name = newbookDescriptor.Name;
+            book.NumberOfWarehouse = newbookDescriptor.NumberOfWarehouse;
+            book.PublishYear = newbookDescriptor.PublishYear;
+            book.Type = newbookDescriptor.Type;
+            book.WarehouseID = newbookDescriptor.WarehouseID;
+            return true;
         }
 
         public bool EditUser(User user, UserType newType, Dictionary<string, string> paras)
         {
-            throw new NotImplementedException();
+            user.Type = newType;
+            user.UserName = paras["username"];
+            user.UserPhone = paras["userphone"];
+            user.UserPasswordSHA1 = paras["userpasswordsha1"];
+            user.UserValid = paras["uservalid"] == "true" ? true : false;
+            return true;
         }
 
-        public bool KeeperAddBook(Warehouse whouse, Book descriptor, out StoringBook sbook)
+        public bool KeeperAddBook(Warehouse whouse, Book descriptor, int numberToStore, out StoringBook sbook)
         {
-            throw new NotImplementedException();
+            // 检查是否初次入库
+            StoringBook csb = whouse.StoringList.Find((t) => t.ISBN == descriptor.ISBN);
+            // 该书初次入库要建立记录
+            if (csb == null)
+            {
+                StoringBook newsb = new StoringBook()
+                {
+                    Author = descriptor.Author,
+                    ISBN = descriptor.ISBN,
+                    Name = descriptor.Name,
+                    NumberOfWarehouse = numberToStore,
+                    PublishYear = descriptor.PublishYear,
+                    Type = descriptor.Type,
+                    WarehouseID = whouse.WarehouseID
+                };
+                whouse.StoringList.Add(newsb);
+                csb = newsb;
+            }
+            // 否则只需要更新信息
+            else
+            {
+                csb.Author = descriptor.Author;
+                csb.ISBN = descriptor.ISBN;
+                csb.Name = descriptor.Name;
+                csb.NumberOfWarehouse = csb.NumberOfWarehouse + numberToStore; // 数量增加
+                csb.PublishYear = descriptor.PublishYear;
+                csb.Type = descriptor.Type;
+            }
+            sbook = csb;
+            return true;
         }
 
         public bool KeeperRemoveBook(Warehouse whouse, StoringBook sbook)
         {
-            throw new NotImplementedException();
+            sbook.NumberOfWarehouse = 0;
+            whouse.StoringList.Remove(sbook);
+            return true;
         }
 
-        public bool KeeperShopBook(Warehouse whouse, StoringBook sbook)
+        public bool KeeperShopBook(Warehouse whouse, StoringBook sbook, int number)
         {
-            throw new NotImplementedException();
+            // 库存不少于需求
+            if (sbook.NumberOfWarehouse >= number)
+            {
+                // 减少库存，增加图书馆藏书量是图书馆柜员的任务，不在此处理
+                sbook.NumberOfWarehouse -= number;
+                return true;
+            }
+            return false;
         }
 
-        public bool LibrarianAddBook(Book book)
+        public bool LibrarianAddBook(Book descriptor)
         {
-            throw new NotImplementedException();
+            Book libBook = this.libMana.GetBook(descriptor.ISBN);
+            // 该书初次入库要建立记录
+            if (libBook == null)
+            {
+                Book newb = new Book()
+                {
+                    Author = descriptor.Author,
+                    ISBN = descriptor.ISBN,
+                    Name = descriptor.Name,
+                    LocationOfLibrary = descriptor.LocationOfLibrary,
+                    NumberInLibrary = descriptor.NumberInLibrary,
+                    NumberInRenting = 0,
+                    Value = descriptor.Value,
+                    IsRemoved = false,
+                    StoreIntoLibraryTimestamp = DateTime.Now,
+                    PublishYear = descriptor.PublishYear,
+                    Type = descriptor.Type
+                };
+                this.libMana.AddBook(newb);
+                libBook = newb;
+            }
+            // 否则只更新信息
+            else
+            {
+                libBook.Author = descriptor.Author;
+                libBook.ISBN = descriptor.ISBN;
+                libBook.Name = descriptor.Name;
+                libBook.LocationOfLibrary = descriptor.LocationOfLibrary;
+                // 增加上架数量，不改变借出量
+                libBook.NumberInLibrary = libBook.NumberInLibrary + descriptor.NumberInLibrary;
+                libBook.Value = descriptor.Value;
+                libBook.IsRemoved = false;
+                libBook.PublishYear = descriptor.PublishYear;
+                libBook.Type = descriptor.Type;
+            }
+            return true;
         }
 
         public bool LibrarianRecieveDelayFee(Usercard card)
         {
-            throw new NotImplementedException();
+            // 强制归还所有延时书籍
+            var nowstamp = DateTime.Now;
+            foreach (var rlog in card.BorrowingList)
+            {
+                if (rlog.OughtReturnTimestamp < nowstamp)
+                {
+                    Book book = this.libMana.GetBook(rlog.RentBookISBN);
+                    // 书的库存增加一本
+                    book.NumberInLibrary++;
+                    // 书的借出数少一本
+                    book.NumberInRenting--;
+                    // 将借书记录标定为已归还
+                    rlog.ActualReturnTimestamp = nowstamp;
+                }
+            }
+            // 收钱完毕就将滞纳金消除
+            card.PaidDelayFeeSucceed();
+            return true;
         }
 
         public bool LibrarianRemoveBook(Book book)
         {
-            throw new NotImplementedException();
+            return this.libMana.DeleteBook(book);
         }
 
         public bool LibrarianRestoreBook(Book book)
         {
-            throw new NotImplementedException();
+            Book obj = this.libMana.GetBook(book.ISBN);
+            // 置零，相当于下架，存入仓库由仓管负责，不在此处理
+            obj.NumberInLibrary = 0;
+            return true;
         }
 
         public bool LoginSuccess(string username)
@@ -154,7 +331,7 @@ namespace TinyMSGW.Adapter
         {
             // 获取用户实例
             var userObj = this.libMana.GetUser(username);
-            if (userObj != null)
+            if (userObj != null && userObj.UserValid == true)
             {
                 // 验证密码的SHA1是否一样
                 allowLogin = userObj.UserPasswordSHA1 == passwordWithSHA1;
@@ -168,28 +345,34 @@ namespace TinyMSGW.Adapter
             // 先保存所有修改
             SettingManager.WriteSettingToStable();
             // 登出用户
-            GlobalDataPackage.CurrentUser = null;
+            GDP.CurrentUser = null;
+            return true;
+        }
+  
+        public bool RetrieveDelayFee(Usercard card, out double fee)
+        {
+            fee = card.DelayFee;
             return true;
         }
 
-        public bool RetrieveBook(Book book, out Dictionary<string, string> descriptor)
+        public bool RetrieveUser(string username, out Dictionary<string, string> descriptor)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool RetrieveBookNumber(Book book, out int count)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool RetrieveDelayFee(Usercard card, out double fee)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool RetrieveUser(User user, out Dictionary<string, string> descriptor)
-        {
-            throw new NotImplementedException();
+            User usr = this.libMana.GetUser(username);
+            if (usr == null)
+            {
+                descriptor = null;
+                return false;
+            }
+            Dictionary<string, string> resDict = new Dictionary<string, string>();
+            resDict["cardid"] = usr.Card.UsercardID.ToString();
+            resDict["type"] = usr.Type.ToString();
+            resDict["userid"] = usr.UserID.ToString();
+            resDict["username"] = usr.UserName;
+            resDict["userpasswordsha1"] = usr.UserPasswordSHA1;
+            resDict["userphone"] = usr.UserPhone;
+            resDict["uservalid"] = usr.UserValid ? "true" : "false";
+            descriptor = resDict;
+            return true;
         }
 
         public void Terminate()

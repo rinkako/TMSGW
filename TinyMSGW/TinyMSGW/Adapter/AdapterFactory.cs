@@ -15,7 +15,7 @@ namespace TinyMSGW.Adapter
         {
             if (AdapterFactory.syncObject == null)
             {
-                if (GlobalDataPackage.RunType == Enum.RunTypeEnum.Local)
+                if (GlobalDataPackage.RunType == Enums.RunTypeEnum.Local)
                 {
                     AdapterFactory.syncObject = new LocalAdapterImpl();
                     LogUtil.Log("ACK: Init Local Adapter.");

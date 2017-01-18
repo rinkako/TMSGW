@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TinyMSGW.Entity;
-using TinyMSGW.Enum;
+using TinyMSGW.Enums;
 
 namespace TinyMSGW.Adapter
 {
@@ -45,6 +45,15 @@ namespace TinyMSGW.Adapter
         /// <param name="card">[out] 办理得到的借书卡</param>
         /// <returns>操作成功与否</returns>
         bool CustomerHandleUsercard(User user, out Usercard card);
+
+        /// <summary>
+        /// 客户丢失了一本书并进行赔偿
+        /// </summary>
+        /// <param name="user">要处理的用户</param>
+        /// <param name="book">丢失的书籍</param>
+        /// <param name="pay">[out] 需要付的钱</param>
+        /// <returns>操作成功与否</returns>
+        bool CustomerMissAndPayForBook(User user, Book book, out double pay);
         #endregion
 
         #region 管理员动作
@@ -77,10 +86,10 @@ namespace TinyMSGW.Adapter
         /// <summary>
         /// 查询一个用户的详细信息
         /// </summary>
-        /// <param name="user">要查询的用户</param>
+        /// <param name="username">要查询的用户名</param>
         /// <param name="descriptor">[out] 该用户的描述字典</param>
         /// <returns>操作成功与否</returns>
-        bool RetrieveUser(User user, out Dictionary<string, string> descriptor);
+        bool RetrieveUser(string username, out Dictionary<string, string> descriptor);
         #endregion
 
         #region 图书馆柜员动作
@@ -94,9 +103,9 @@ namespace TinyMSGW.Adapter
         /// <summary>
         /// 柜员将一种书加到图书馆中
         /// </summary>
-        /// <param name="book">待添加的书</param>
+        /// <param name="descriptor">待添加的书的描述子</param>
         /// <returns>操作成功与否</returns>
-        bool LibrarianAddBook(Book book);
+        bool LibrarianAddBook(Book descriptor);
 
         /// <summary>
         /// 柜员将一种书从图书馆中下架并抛弃
@@ -119,9 +128,10 @@ namespace TinyMSGW.Adapter
         /// </summary>
         /// <param name="whouse">要入库的仓库</param>
         /// <param name="descriptor">书的描述子</param>
+        /// <param name="numberToStore">要入库的数量</param>
         /// <param name="sbook">入库生成的未上架书籍实例</param>
         /// <returns>操作成功与否</returns>
-        bool KeeperAddBook(Warehouse whouse, Book descriptor, out StoringBook sbook);
+        bool KeeperAddBook(Warehouse whouse, Book descriptor, int numberToStore, out StoringBook sbook);
 
         /// <summary>
         /// 仓管将一种库存里的书扔掉
@@ -136,8 +146,9 @@ namespace TinyMSGW.Adapter
         /// </summary>
         /// <param name="whouse">要移出的仓库</param>
         /// <param name="sbook">要处理的未上架书籍</param>
+        /// <param name="number">要上架的本数</param>
         /// <returns>操作成功与否</returns>
-        bool KeeperShopBook(Warehouse whouse, StoringBook sbook);
+        bool KeeperShopBook(Warehouse whouse, StoringBook sbook, int number);
 
         /// <summary>
         /// 修改一本库存书的信息
@@ -150,22 +161,6 @@ namespace TinyMSGW.Adapter
         #endregion
 
         #region 公共动作
-        /// <summary>
-        /// 获取一本书的基本信息
-        /// </summary>
-        /// <param name="book">要查询的书</param>
-        /// <param name="descriptor">[out] 该书籍的描述字典</param>
-        /// <returns>操作成功与否</returns>
-        bool RetrieveBook(Book book, out Dictionary<string, string> descriptor);
-
-        /// <summary>
-        /// 获取一本书在图书馆内的数量
-        /// </summary>
-        /// <param name="book">要查询的书</param>
-        /// <param name="count">[out] 该书在图书馆内还未借出的数量</param>
-        /// <returns>操作成功与否</returns>
-        bool RetrieveBookNumber(Book book, out int count);
-
         /// <summary>
         /// 获取一张借书卡的滞纳金
         /// </summary>

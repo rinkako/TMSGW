@@ -1,4 +1,4 @@
-﻿namespace TinyMSGW.Enum
+﻿namespace TinyMSGW.Enums
 {
     /// <summary>
     /// 枚举：运行模式
