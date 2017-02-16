@@ -211,6 +211,38 @@ namespace TinyMSGW.Adapter
         /// </summary>
         /// <returns>操作成功与否</returns>
         bool WriteDataToStableStorage();
+
+        /// <summary>
+        /// 列出所有上架图书
+        /// </summary>
+        /// <returns>操作成功与否</returns>
+        bool ListAllLibraryBook();
+
+        /// <summary>
+        /// 列出所有库存图书
+        /// </summary>
+        /// <param name="w">要查询的仓库</param>
+        /// <returns>操作成功与否</returns>
+        bool ListAllStoringBook(Warehouse w);
+
+        /// <summary>
+        /// 列出所有图书
+        /// </summary>
+        /// <returns>操作成功与否</returns>
+        bool ListAllBook();
+
+        /// <summary>
+        /// 列出所有指定类型的用户
+        /// </summary>
+        /// <param name="utype">用户类型</param>
+        /// <returns>操作成功与否</returns>
+        bool ListUser(UserType utype);
+
+        /// <summary>
+        /// 列出所有用户
+        /// </summary>
+        /// <returns>操作成功与否</returns>
+        bool ListAllUser();
         #endregion
     }
 }

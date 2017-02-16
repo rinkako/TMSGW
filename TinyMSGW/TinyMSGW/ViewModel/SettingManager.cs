@@ -203,7 +203,8 @@ namespace TinyMSGW.ViewModel
             // 联机模式的数据不需要直接读取，只要验证对数据库的连接是否成立
             else
             {
-                return DBUtil.CheckLinking();
+                // TODO： 检测连接
+                return true;
             }
         }
     }

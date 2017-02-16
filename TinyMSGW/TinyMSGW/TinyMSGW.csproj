@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data">
+      <HintPath>.\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -70,6 +73,12 @@
     <Compile Include="Forms\RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RetrieveBookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RetrieveBookForm.Designer.cs">
+      <DependentUpon>RetrieveBookForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Utils\CommonUtil.cs" />
     <Compile Include="Utils\IniUtil.cs" />
     <Compile Include="Utils\LogUtil.cs" />
@@ -103,6 +112,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RetrieveBookForm.resx">
+      <DependentUpon>RetrieveBookForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

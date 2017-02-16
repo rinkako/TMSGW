@@ -41,7 +41,7 @@ namespace TinyMSGW.Utils
             // 写日志
             try
             {
-                FileStream fs = new FileStream(LocalIOUtil.ParseURItoURL(GlobalDataPackage.LogFileName, true), FileMode.CreateNew);
+                FileStream fs = new FileStream(LocalIOUtil.ParseURItoURL(GlobalDataPackage.LogFileName, true), FileMode.Append);
                 StreamWriter sw = new StreamWriter(fs);
                 sw.WriteLine(DateTime.Now.ToString() + "> " + msg);
                 sw.Close();

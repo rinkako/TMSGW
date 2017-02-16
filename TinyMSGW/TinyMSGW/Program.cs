@@ -11,9 +11,12 @@ namespace TinyMSGW
         [STAThread]
         static void Main()
         {
+            // debug
+            Adapter.AdapterFactory.InitAdapter();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Forms.MainForm());
+            Application.Run(new Forms.LoginForm());
 
             //// 初次运行则要弹出设置窗体
             //if (ViewModel.SettingManager.IsFirstTimeRun())

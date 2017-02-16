@@ -50,13 +50,13 @@
             this.button20 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button13 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
-            this.button21 = new System.Windows.Forms.Button();
-            this.button22 = new System.Windows.Forms.Button();
-            this.button23 = new System.Windows.Forms.Button();
-            this.button24 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
+            this.button24 = new System.Windows.Forms.Button();
+            this.button21 = new System.Windows.Forms.Button();
+            this.button23 = new System.Windows.Forms.Button();
+            this.button22 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -80,6 +80,7 @@
             this.button1.TabIndex = 1;
             this.button1.Text = "查询馆藏图书";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
@@ -110,6 +111,7 @@
             this.button4.TabIndex = 4;
             this.button4.Text = "退出登录";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // groupBox1
             // 
@@ -288,15 +290,6 @@
             this.button13.Text = "系统设置";
             this.button13.UseVisualStyleBackColor = true;
             // 
-            // button14
-            // 
-            this.button14.Location = new System.Drawing.Point(317, 20);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(97, 31);
-            this.button14.TabIndex = 14;
-            this.button14.Text = "修改图书馆名称";
-            this.button14.UseVisualStyleBackColor = true;
-            // 
             // button15
             // 
             this.button15.Location = new System.Drawing.Point(214, 57);
@@ -306,32 +299,23 @@
             this.button15.Text = "修改借书期限";
             this.button15.UseVisualStyleBackColor = true;
             // 
-            // button21
+            // button14
             // 
-            this.button21.Location = new System.Drawing.Point(214, 20);
-            this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(97, 31);
-            this.button21.TabIndex = 12;
-            this.button21.Text = "修改滞纳金";
-            this.button21.UseVisualStyleBackColor = true;
+            this.button14.Location = new System.Drawing.Point(317, 20);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(97, 31);
+            this.button14.TabIndex = 14;
+            this.button14.Text = "修改图书馆名称";
+            this.button14.UseVisualStyleBackColor = true;
             // 
-            // button22
+            // button25
             // 
-            this.button22.Location = new System.Drawing.Point(111, 57);
-            this.button22.Name = "button22";
-            this.button22.Size = new System.Drawing.Size(97, 31);
-            this.button22.TabIndex = 11;
-            this.button22.Text = "修改用户";
-            this.button22.UseVisualStyleBackColor = true;
-            // 
-            // button23
-            // 
-            this.button23.Location = new System.Drawing.Point(111, 20);
-            this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(97, 31);
-            this.button23.TabIndex = 10;
-            this.button23.Text = "查询用户";
-            this.button23.UseVisualStyleBackColor = true;
+            this.button25.Location = new System.Drawing.Point(6, 20);
+            this.button25.Name = "button25";
+            this.button25.Size = new System.Drawing.Size(97, 31);
+            this.button25.TabIndex = 8;
+            this.button25.Text = "添加用户";
+            this.button25.UseVisualStyleBackColor = true;
             // 
             // button24
             // 
@@ -342,14 +326,32 @@
             this.button24.Text = "删除用户";
             this.button24.UseVisualStyleBackColor = true;
             // 
-            // button25
+            // button21
             // 
-            this.button25.Location = new System.Drawing.Point(6, 20);
-            this.button25.Name = "button25";
-            this.button25.Size = new System.Drawing.Size(97, 31);
-            this.button25.TabIndex = 8;
-            this.button25.Text = "添加用户";
-            this.button25.UseVisualStyleBackColor = true;
+            this.button21.Location = new System.Drawing.Point(214, 20);
+            this.button21.Name = "button21";
+            this.button21.Size = new System.Drawing.Size(97, 31);
+            this.button21.TabIndex = 12;
+            this.button21.Text = "修改滞纳金";
+            this.button21.UseVisualStyleBackColor = true;
+            // 
+            // button23
+            // 
+            this.button23.Location = new System.Drawing.Point(111, 20);
+            this.button23.Name = "button23";
+            this.button23.Size = new System.Drawing.Size(97, 31);
+            this.button23.TabIndex = 10;
+            this.button23.Text = "查询用户";
+            this.button23.UseVisualStyleBackColor = true;
+            // 
+            // button22
+            // 
+            this.button22.Location = new System.Drawing.Point(111, 57);
+            this.button22.Name = "button22";
+            this.button22.Size = new System.Drawing.Size(97, 31);
+            this.button22.TabIndex = 11;
+            this.button22.Text = "修改用户";
+            this.button22.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

@@ -15,16 +15,19 @@ namespace TinyMSGW.Adapter
         {
             if (AdapterFactory.syncObject == null)
             {
-                if (GlobalDataPackage.RunType == Enums.RunTypeEnum.Local)
-                {
-                    AdapterFactory.syncObject = new LocalAdapterImpl();
-                    LogUtil.Log("ACK: Init Local Adapter.");
-                }
-                else
-                {
-                    AdapterFactory.syncObject = new OnlineAdapterImpl();
-                    LogUtil.Log("ACK: Init Online Adapter.");
-                }
+                // TODO: 当前只考虑online态
+                AdapterFactory.syncObject = new OnlineAdapterImpl();
+                LogUtil.Log("ACK: Init Online Adapter.");
+                //if (GlobalDataPackage.RunType == Enums.RunTypeEnum.Local)
+                //{
+                //    AdapterFactory.syncObject = new LocalAdapterImpl();
+                //    LogUtil.Log("ACK: Init Local Adapter.");
+                //}
+                //else
+                //{
+                //    AdapterFactory.syncObject = new OnlineAdapterImpl();
+                //    LogUtil.Log("ACK: Init Online Adapter.");
+                //}
                 return false;
             }
             return true;

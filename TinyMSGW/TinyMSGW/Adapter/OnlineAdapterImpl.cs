@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Data;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using TinyMSGW.Entity;
 using TinyMSGW.Enums;
+using TinyMSGW.Utils;
 
 namespace TinyMSGW.Adapter
 {
@@ -97,19 +99,74 @@ namespace TinyMSGW.Adapter
             throw new NotImplementedException();
         }
 
-        public bool LoginSuccess(string username)
+        public bool ListAllBook()
         {
             throw new NotImplementedException();
+        }
+
+        public bool ListAllLibraryBook()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ListAllStoringBook(Warehouse w)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ListAllUser()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ListUser(UserType utype)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool LoginSuccess(string username)
+        {
+            // 恒为TRUE
+            return true;
         }
 
         public bool LoginValid(string username, string passwordWithSHA1, out bool allowLogin)
         {
-            throw new NotImplementedException();
+            try
+            {
+                DataTable resDt = DBUtil.GetDataSet(DBUtil.Conn, CommandType.Text, "select * from tw_user where tw_user.UserName = \"" + username + "\"", null).Tables[0];
+                allowLogin = false;
+                if (resDt.Rows.Count > 0)
+                {
+                    string checkpw = (string)resDt.Rows[0]["UserPasswordSHA1"];
+                    if (String.Equals(checkpw, passwordWithSHA1, StringComparison.CurrentCultureIgnoreCase))
+                    {
+                        allowLogin = true;
+                        GlobalDataPackage.CurrentUser = new User()
+                        {
+                            UserID = (int)resDt.Rows[0]["UserID"],
+                            CardID = (int)resDt.Rows[0]["CardID"],
+                            UserName = username,
+                            Type = (UserType)((int)resDt.Rows[0]["Type"]),
+                            UserPasswordSHA1 = passwordWithSHA1,
+                            UserPhone = (string)resDt.Rows[0]["UserPhone"],
+                            UserValid = (int)resDt.Rows[0]["UserValid"] == 1
+                        };
+                    }
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR - Login Valid Online Failure：" + e.ToString());
+                return allowLogin = false;
+            }
         }
 
         public bool Logout()
         {
-            throw new NotImplementedException();
+            GlobalDataPackage.CurrentUser = null;
+            return true;
         }
 
         public bool RetrieveDelayFee(Usercard card, out double fee)

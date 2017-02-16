@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+using TinyMSGW.Adapter;
+
 namespace TinyMSGW.Forms
 {
     /// <summary>
@@ -15,11 +17,27 @@ namespace TinyMSGW.Forms
     public partial class MainForm : Form
     {
         /// <summary>
+        /// 适配器
+        /// </summary>
+        private IActionAdapter adapter = AdapterFactory.GetAdapter();
+
+        /// <summary>
         /// 构造器
         /// </summary>
         public MainForm()
         {
+            
+
+            // DEBUG
+            //GlobalDataPackage.CurrentUser = new Entity.User()
+            //{
+            //    UserName = "MyAdmin",
+            //    Type = Enums.UserType.Admin
+            //};
+
             InitializeComponent();
+            
+            
             // 根据用户的权限修改窗体控件的可访问性和可视效果
             this.label1.Text = String.Format("欢迎你，{0}：", GlobalDataPackage.CurrentUser.UserName, 
                 GlobalDataPackage.CurrentUser.Type == Enums.UserType.Customer ? "" : " (" +
@@ -45,6 +63,27 @@ namespace TinyMSGW.Forms
                     break;
             }
         }
-        
+
+        /// <summary>
+        /// 按钮：查询馆藏图书
+        /// </summary>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RetrieveBookForm rbf = new RetrieveBookForm();
+            rbf.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 按钮：退出登录
+        /// </summary>
+        private void button4_Click(object sender, EventArgs e)
+        {
+            // 后台退出登录
+            this.adapter.Logout();
+            // 切换到登录窗体
+            LoginForm lf = new LoginForm();
+            lf.Show();
+            this.Hide();
+        }
     }
 }

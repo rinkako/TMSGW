@@ -390,5 +390,30 @@ namespace TinyMSGW.Adapter
         {
             return LocalIOUtil.Serialization(libMana.GetLibraryInstance(), LocalIOUtil.ParseURItoURL(GDP.DataFileName, true));
         }
+
+        public bool ListAllLibraryBook()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ListAllStoringBook(Warehouse w)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ListAllBook()
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ListUser(UserType utype)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ListAllUser()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

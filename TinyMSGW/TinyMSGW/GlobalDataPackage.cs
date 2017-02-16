@@ -12,7 +12,7 @@ namespace TinyMSGW
         /// <summary>
         /// 软件运行模式
         /// </summary>
-        public static RunTypeEnum RunType;
+        public static RunTypeEnum RunType = RunTypeEnum.Online;
 
         /// <summary>
         /// 联机模式下数据库服务器IP地址

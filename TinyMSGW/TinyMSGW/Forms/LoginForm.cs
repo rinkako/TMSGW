@@ -22,7 +22,7 @@ namespace TinyMSGW.Forms
         {
             InitializeComponent();
         }
-
+        
         /// <summary>
         /// 按钮：取消
         /// </summary>
@@ -47,6 +47,7 @@ namespace TinyMSGW.Forms
             if (allowFlag == false)
             {
                 MessageBox.Show("用户名或密码不正确", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
             // 登陆成功
             this.adapter.LoginSuccess(this.textBox1.Text);
