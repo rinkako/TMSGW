@@ -6,6 +6,7 @@ using System.Text;
 using TinyMSGW.Entity;
 using TinyMSGW.Enums;
 using TinyMSGW.Utils;
+using TinyMSGW.ViewModel;
 
 namespace TinyMSGW.Adapter
 {
@@ -99,27 +100,42 @@ namespace TinyMSGW.Adapter
             throw new NotImplementedException();
         }
 
-        public bool ListAllBook()
+        public bool ListAllBook(out object outDataSet)
         {
             throw new NotImplementedException();
         }
 
-        public bool ListAllLibraryBook()
+        public bool ListAllLibraryBook(out object outDataSet, string keyword, string type)
+        {
+            try
+            {
+                string clause = "select * from tw_book";
+                if (keyword != String.Empty)
+                {
+                    clause += " where tw_book.Name LIKE '%" + keyword + "%'";
+                }
+                outDataSet = DBUtil.GetDataSet(DBUtil.Conn, CommandType.Text, clause, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: " + e.ToString());
+                outDataSet = null;
+                return false;
+            }
+        }
+
+        public bool ListAllStoringBook(Warehouse w, out object outDataSet)
         {
             throw new NotImplementedException();
         }
 
-        public bool ListAllStoringBook(Warehouse w)
+        public bool ListAllUser(out object outDataSet)
         {
             throw new NotImplementedException();
         }
 
-        public bool ListAllUser()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool ListUser(UserType utype)
+        public bool ListUser(UserType utype, out object outDataSet)
         {
             throw new NotImplementedException();
         }
@@ -181,12 +197,19 @@ namespace TinyMSGW.Adapter
 
         public void Terminate()
         {
-            throw new NotImplementedException();
+            // 保存修改
+            SettingManager.WriteSettingToStable();
+            // 保存数据
+            this.WriteDataToStableStorage();
+            // 退出程序
+            LogUtil.Log("ACK: Terminate called, system shutdown.");
+            Environment.Exit(0);
         }
 
         public bool WriteDataToStableStorage()
         {
-            throw new NotImplementedException();
+            // online模式的修改总是即时的
+            return true;
         }
     }
 }

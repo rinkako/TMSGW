@@ -215,34 +215,41 @@ namespace TinyMSGW.Adapter
         /// <summary>
         /// 列出所有上架图书
         /// </summary>
+        /// <param name="outDataSet">[out] 要传出的数据集</param>
+        /// <param name="keyword">查询关键词</param>
+        /// <param name="type">查询类型</param>
         /// <returns>操作成功与否</returns>
-        bool ListAllLibraryBook();
+        bool ListAllLibraryBook(out object outDataSet, string keyword, string type);
 
         /// <summary>
         /// 列出所有库存图书
         /// </summary>
         /// <param name="w">要查询的仓库</param>
+        /// <param name="outDataSet">[out] 要传出的数据集</param>
         /// <returns>操作成功与否</returns>
-        bool ListAllStoringBook(Warehouse w);
+        bool ListAllStoringBook(Warehouse w, out object outDataSet);
 
         /// <summary>
         /// 列出所有图书
         /// </summary>
+        /// <param name="outDataSet">[out] 要传出的数据集</param>
         /// <returns>操作成功与否</returns>
-        bool ListAllBook();
+        bool ListAllBook(out object outDataSet);
 
         /// <summary>
         /// 列出所有指定类型的用户
         /// </summary>
         /// <param name="utype">用户类型</param>
+        /// <param name="outDataSet">[out] 要传出的数据集</param>
         /// <returns>操作成功与否</returns>
-        bool ListUser(UserType utype);
+        bool ListUser(UserType utype, out object outDataSet);
 
         /// <summary>
         /// 列出所有用户
         /// </summary>
+        /// <param name="outDataSet">[out] 要传出的数据集</param>
         /// <returns>操作成功与否</returns>
-        bool ListAllUser();
+        bool ListAllUser(out object outDataSet);
         #endregion
     }
 }

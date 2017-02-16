@@ -7,14 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using TinyMSGW.Utils;
+using TinyMSGW.Adapter;
 
 namespace TinyMSGW.Forms
 {
     public partial class RetrieveBookForm : Form
     {
+        /// <summary>
+        /// 适配器
+        /// </summary>
+        private IActionAdapter adapter = AdapterFactory.GetAdapter();
+
+        /// <summary>
+        /// 构造器
+        /// </summary>
         public RetrieveBookForm()
         {
             InitializeComponent();
+            this.comboBox1.SelectedIndex = 0;
         }
 
         /// <summary>
@@ -22,8 +32,26 @@ namespace TinyMSGW.Forms
         /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            DataSet ds = DBUtil.GetDataSet(DBUtil.Conn, CommandType.Text, "select * from tw_book", null);
-            this.dataGridView1.DataSource = ds.Tables[0].DefaultView;
+            Object ds;
+            this.adapter.ListAllLibraryBook(out ds, this.textBox1.Text, this.comboBox1.SelectedIndex == 0 ? String.Empty : this.comboBox1.SelectedValue.ToString());
+            this.dataGridView1.DataSource = (ds as DataSet).Tables[0].DefaultView;
+        }
+
+        /// <summary>
+        /// 按钮：返回
+        /// </summary>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        /// <summary>
+        /// 动作：双击单元格
+        /// </summary>
+        private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string isbn = (string)this.dataGridView1.Rows[e.RowIndex].Cells[0].Value;
+
         }
     }
 }

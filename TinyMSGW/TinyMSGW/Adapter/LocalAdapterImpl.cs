@@ -391,27 +391,27 @@ namespace TinyMSGW.Adapter
             return LocalIOUtil.Serialization(libMana.GetLibraryInstance(), LocalIOUtil.ParseURItoURL(GDP.DataFileName, true));
         }
 
-        public bool ListAllLibraryBook()
+        public bool ListAllLibraryBook(out object outDataSet, string keyword, string type)
         {
             throw new NotImplementedException();
         }
 
-        public bool ListAllStoringBook(Warehouse w)
+        public bool ListAllStoringBook(Warehouse w, out object outDataSet)
         {
             throw new NotImplementedException();
         }
 
-        public bool ListAllBook()
+        public bool ListAllBook(out object outDataSet)
         {
             throw new NotImplementedException();
         }
 
-        public bool ListUser(UserType utype)
+        public bool ListUser(UserType utype, out object outDataSet)
         {
             throw new NotImplementedException();
         }
 
-        public bool ListAllUser()
+        public bool ListAllUser(out object outDataSet)
         {
             throw new NotImplementedException();
         }
