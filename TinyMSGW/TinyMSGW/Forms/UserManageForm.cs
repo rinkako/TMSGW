@@ -142,7 +142,7 @@ namespace TinyMSGW.Forms
                 // 提交更改
                 User userDescriptor = new User()
                 {
-                    UserID = Convert.ToInt32((string)(rowItem.Cells["UserID"].Value))
+                    UserID = (int)rowItem.Cells["UserID"].Value
                 };
                 Usercard outCard;
                 this.adapter.CustomerHandleUsercard(userDescriptor, out outCard);
@@ -167,14 +167,23 @@ namespace TinyMSGW.Forms
                     MessageBox.Show("该用户并未拥有借书卡");
                     return;
                 }
+                // 书籍归还检验
+                List<Book> bkList;
+                List<RentLog> rlList;
+                this.adapter.ListAllRentingBook((string)rowItem.Cells["UserName"].Value, false, out bkList, out rlList);
+                if (bkList != null && bkList.Count > 0)
+                {
+                    MessageBox.Show("该用户还有未归还的图书，不能注销借书卡");
+                    return;
+                }
                 // 提交更改
                 User userDescriptor = new User()
                 {
-                    UserID = Convert.ToInt32((string)(rowItem.Cells["UserID"].Value))
+                    UserID =(int)rowItem.Cells["UserID"].Value
                 };
                 Usercard cardDescriptor = new Usercard()
                 {
-                    UsercardID = Convert.ToInt32((string)(rowItem.Cells["CardID"].Value))
+                    UsercardID = (int)rowItem.Cells["CardID"].Value
                 };
                 this.adapter.CustomerCancelUsercard(userDescriptor, cardDescriptor);
                 MessageBox.Show("注销成功！");
