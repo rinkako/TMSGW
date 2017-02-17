@@ -17,22 +17,22 @@ namespace TinyMSGW
         /// <summary>
         /// 联机模式下数据库服务器IP地址
         /// </summary>
-        public static string DBServerIPAddress = "127.0.0.0";
+        public static string DBServerIPAddress = "127.0.0.1";
 
         /// <summary>
         /// 联机模式下数据库连接用户名
         /// </summary>
-        public static string DBUsername = String.Empty;
+        public static string DBUsername = "root";
 
         /// <summary>
         /// 联机模式下数据库连接密码
         /// </summary>
-        public static string DBPassword = String.Empty;
+        public static string DBPassword = "miniserver";
 
         /// <summary>
         /// 联机模式下数据库名
         /// </summary>
-        public static string DBName = String.Empty;
+        public static string DBName = "tinygwarehouse";
 
         /// <summary>
         /// 系统管理员用户名
@@ -100,12 +100,12 @@ namespace TinyMSGW
         /// <summary>
         /// 全局计数器：用户编号
         /// </summary>
-        public static int GlobalCounterUserID = 0;
+        public static int GlobalCounterUserID = 1;
 
         /// <summary>
         /// 全局计数器：借书卡编号
         /// </summary>
-        public static int GlobalCounterUsercardID = 0;
+        public static int GlobalCounterUsercardID = 1;
 
         /// <summary>
         /// 全局计数器：仓库编号

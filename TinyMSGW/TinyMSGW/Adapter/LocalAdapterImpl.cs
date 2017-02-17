@@ -411,7 +411,12 @@ namespace TinyMSGW.Adapter
             throw new NotImplementedException();
         }
 
-        public bool ListAllUser(out object outDataSet)
+        public bool ListAllUser(out object outDataSet, string keyword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RetrieveBook(string isbn, out Book outBook)
         {
             throw new NotImplementedException();
         }

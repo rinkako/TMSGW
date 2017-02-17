@@ -48,14 +48,7 @@ namespace TinyMSGW.Forms
                     "请保证用户名只含有英文字母，且密码非空");
                 return;
             }
-            // 检查图书馆名称
-            if (this.textBox1.Text.Trim() == String.Empty)
-            {
-                MessageBox.Show("请输入图书馆名称");
-                return;
-            }
             Dictionary<string, string> paraDict = new Dictionary<string, string>();
-            paraDict.Add("LibraryName", this.textBox1.Text.Trim());
             paraDict.Add("AdminName", this.textBox5.Text.Trim());
             paraDict.Add("AdminPasswordSHA1", CommonUtil.EncryptToSHA1(this.textBox6.Text));
             // 选择单机

@@ -16,6 +16,11 @@ namespace TinyMSGW.Forms
     public partial class LoginForm : Form
     {
         /// <summary>
+        /// 适配器
+        /// </summary>
+        IActionAdapter adapter = AdapterFactory.GetAdapter();
+
+        /// <summary>
         /// 构造器
         /// </summary>
         public LoginForm()
@@ -58,8 +63,20 @@ namespace TinyMSGW.Forms
         }
 
         /// <summary>
-        /// 适配器
+        /// 按钮：注册
         /// </summary>
-        IActionAdapter adapter = AdapterFactory.GetAdapter();
+        private void button3_Click(object sender, EventArgs e)
+        {
+            RegisterForm rf = new RegisterForm();
+            rf.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 事件：用户名输入改动
+        /// </summary>
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            this.textBox2.Text = String.Empty;
+        }
     }
 }

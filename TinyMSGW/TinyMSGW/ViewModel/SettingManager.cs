@@ -120,7 +120,7 @@ namespace TinyMSGW.ViewModel
                     GlobalDataPackage.DBUsername = ini.IniReadValue("MSGW", "DBUsername");
                     var dbpass = ini.IniReadValue("MSGW", "DBPassword");
                     // 从前后两个#号中取出密码，避免前后有空格被消除
-                    GlobalDataPackage.DBPassword = dbpass.Substring(1, dbpass.Length - 1);
+                    GlobalDataPackage.DBPassword = dbpass.Substring(1, dbpass.Length - 2);
                 }
                 // 初始化适配器
                 Adapter.AdapterFactory.InitAdapter();
@@ -163,10 +163,33 @@ namespace TinyMSGW.ViewModel
                 ini.IniWriteValue("MSGW", "GlobalCounterWarehouseID", GlobalDataPackage.GlobalCounterWarehouseID.ToString());
                 // 密码前后加两个#号来防止前后有空格被消掉
                 ini.IniWriteValue("MSGW", "DBPassword", String.Format("#{0}#", GlobalDataPackage.DBPassword));
+                LogUtil.Alert("ACK: saved setting.");
             }
             catch (Exception e)
             {
                 LogUtil.Log("ERROR: unable to write settings to stable. " + e.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 将计数器写到稳定储存器中
+        /// </summary>
+        public static void WriteCounterToStable()
+        {
+            try
+            {
+                IniUtil ini = new IniUtil(LocalIOUtil.ParseURItoURL(GlobalDataPackage.SettingFileName, true));
+                ini.IniWriteValue("MSGW", "GlobalCounterBookID", GlobalDataPackage.GlobalCounterBookID.ToString());
+                ini.IniWriteValue("MSGW", "GlobalCounterRentLogID", GlobalDataPackage.GlobalCounterRentLogID.ToString());
+                ini.IniWriteValue("MSGW", "GlobalCounterStoringBookID", GlobalDataPackage.GlobalCounterStoringBookID.ToString());
+                ini.IniWriteValue("MSGW", "GlobalCounterUsercardID", GlobalDataPackage.GlobalCounterUsercardID.ToString());
+                ini.IniWriteValue("MSGW", "GlobalCounterUserID", GlobalDataPackage.GlobalCounterUserID.ToString());
+                ini.IniWriteValue("MSGW", "GlobalCounterWarehouseID", GlobalDataPackage.GlobalCounterWarehouseID.ToString());
+                LogUtil.Alert("ACK: auto saved counters.");
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: unable to write counters to stable. " + e.ToString());
             }
         }
 

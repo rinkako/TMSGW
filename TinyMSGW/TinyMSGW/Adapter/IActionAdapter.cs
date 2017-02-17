@@ -176,41 +176,14 @@ namespace TinyMSGW.Adapter
         /// <param name="newbookDescriptor">要将第一个参数的书改成形如这个的书</param>
         /// <returns>操作成功与否</returns>
         bool EditBook(Book book, Book newbookDescriptor);
-        #endregion
 
-        #region 系统的辅助函数
         /// <summary>
-        /// 验证用户登录
+        /// 获取一本书的信息
         /// </summary>
-        /// <param name="username">用户名</param>
-        /// <param name="passwordWithSHA1">SHA1过的密码串</param>
-        /// <param name="allowLogin">[out] 是否允许登录</param>
-        /// <returns>操作成功与否（此处表现为能否成功运行验证）</returns>
-        bool LoginValid(string username, string passwordWithSHA1, out bool allowLogin);
-        
-        /// <summary>
-        /// 登陆一个用户，用于成功验证之后
-        /// </summary>
-        /// <param name="username">要登录的用户名</param>
+        /// <param name="isbn">要查询的图书的ISBN</param>
+        /// <param name="outBook">[out] 查询到的图书实例</param>
         /// <returns>操作成功与否</returns>
-        bool LoginSuccess(string username);
-
-        /// <summary>
-        /// 登出系统
-        /// </summary>
-        /// <returns>操作成功与否</returns>
-        bool Logout();
-
-        /// <summary>
-        /// 结束应用程序
-        /// </summary>
-        void Terminate();
-
-        /// <summary>
-        /// 将数据写入稳定储存器
-        /// </summary>
-        /// <returns>操作成功与否</returns>
-        bool WriteDataToStableStorage();
+        bool RetrieveBook(string isbn, out Book outBook);
 
         /// <summary>
         /// 列出所有上架图书
@@ -248,8 +221,44 @@ namespace TinyMSGW.Adapter
         /// 列出所有用户
         /// </summary>
         /// <param name="outDataSet">[out] 要传出的数据集</param>
+        /// <param name="keyword">查询关键字</param>
         /// <returns>操作成功与否</returns>
-        bool ListAllUser(out object outDataSet);
+        bool ListAllUser(out object outDataSet, string keyword);
+        #endregion
+
+        #region 系统的辅助函数
+        /// <summary>
+        /// 验证用户登录
+        /// </summary>
+        /// <param name="username">用户名</param>
+        /// <param name="passwordWithSHA1">SHA1过的密码串</param>
+        /// <param name="allowLogin">[out] 是否允许登录</param>
+        /// <returns>操作成功与否（此处表现为能否成功运行验证）</returns>
+        bool LoginValid(string username, string passwordWithSHA1, out bool allowLogin);
+        
+        /// <summary>
+        /// 登陆一个用户，用于成功验证之后
+        /// </summary>
+        /// <param name="username">要登录的用户名</param>
+        /// <returns>操作成功与否</returns>
+        bool LoginSuccess(string username);
+
+        /// <summary>
+        /// 登出系统
+        /// </summary>
+        /// <returns>操作成功与否</returns>
+        bool Logout();
+
+        /// <summary>
+        /// 结束应用程序
+        /// </summary>
+        void Terminate();
+
+        /// <summary>
+        /// 将数据写入稳定储存器
+        /// </summary>
+        /// <returns>操作成功与否</returns>
+        bool WriteDataToStableStorage();
         #endregion
     }
 }

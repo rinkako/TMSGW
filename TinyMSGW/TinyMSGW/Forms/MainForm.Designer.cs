@@ -51,12 +51,8 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button13 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
-            this.button14 = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
-            this.button24 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
-            this.button23 = new System.Windows.Forms.Button();
-            this.button22 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -74,7 +70,7 @@
             // button1
             // 
             this.button1.AutoSize = true;
-            this.button1.Location = new System.Drawing.Point(15, 46);
+            this.button1.Location = new System.Drawing.Point(15, 36);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(208, 94);
             this.button1.TabIndex = 1;
@@ -85,17 +81,17 @@
             // button2
             // 
             this.button2.AutoSize = true;
-            this.button2.Location = new System.Drawing.Point(229, 46);
+            this.button2.Location = new System.Drawing.Point(229, 36);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(208, 94);
             this.button2.TabIndex = 2;
-            this.button2.Text = "自助借书";
+            this.button2.Text = "自助还书";
             this.button2.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
             this.button3.AutoSize = true;
-            this.button3.Location = new System.Drawing.Point(15, 146);
+            this.button3.Location = new System.Drawing.Point(15, 136);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(208, 94);
             this.button3.TabIndex = 3;
@@ -105,7 +101,7 @@
             // button4
             // 
             this.button4.AutoSize = true;
-            this.button4.Location = new System.Drawing.Point(229, 146);
+            this.button4.Location = new System.Drawing.Point(229, 136);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(208, 94);
             this.button4.TabIndex = 4;
@@ -267,15 +263,11 @@
             // 
             this.groupBox3.Controls.Add(this.button13);
             this.groupBox3.Controls.Add(this.button15);
-            this.groupBox3.Controls.Add(this.button14);
             this.groupBox3.Controls.Add(this.button25);
-            this.groupBox3.Controls.Add(this.button24);
             this.groupBox3.Controls.Add(this.button21);
-            this.groupBox3.Controls.Add(this.button23);
-            this.groupBox3.Controls.Add(this.button22);
             this.groupBox3.Location = new System.Drawing.Point(15, 458);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(422, 100);
+            this.groupBox3.Size = new System.Drawing.Size(422, 62);
             this.groupBox3.TabIndex = 9;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "管理员功能";
@@ -283,30 +275,23 @@
             // 
             // button13
             // 
-            this.button13.Location = new System.Drawing.Point(317, 57);
+            this.button13.Location = new System.Drawing.Point(317, 20);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(97, 31);
             this.button13.TabIndex = 15;
             this.button13.Text = "系统设置";
             this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.button13_Click);
             // 
             // button15
             // 
-            this.button15.Location = new System.Drawing.Point(214, 57);
+            this.button15.Location = new System.Drawing.Point(214, 20);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(97, 31);
             this.button15.TabIndex = 13;
             this.button15.Text = "修改借书期限";
             this.button15.UseVisualStyleBackColor = true;
-            // 
-            // button14
-            // 
-            this.button14.Location = new System.Drawing.Point(317, 20);
-            this.button14.Name = "button14";
-            this.button14.Size = new System.Drawing.Size(97, 31);
-            this.button14.TabIndex = 14;
-            this.button14.Text = "修改图书馆名称";
-            this.button14.UseVisualStyleBackColor = true;
+            this.button15.Click += new System.EventHandler(this.button15_Click);
             // 
             // button25
             // 
@@ -314,50 +299,25 @@
             this.button25.Name = "button25";
             this.button25.Size = new System.Drawing.Size(97, 31);
             this.button25.TabIndex = 8;
-            this.button25.Text = "添加用户";
+            this.button25.Text = "用户管理";
             this.button25.UseVisualStyleBackColor = true;
-            // 
-            // button24
-            // 
-            this.button24.Location = new System.Drawing.Point(6, 57);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(97, 31);
-            this.button24.TabIndex = 9;
-            this.button24.Text = "删除用户";
-            this.button24.UseVisualStyleBackColor = true;
+            this.button25.Click += new System.EventHandler(this.button25_Click);
             // 
             // button21
             // 
-            this.button21.Location = new System.Drawing.Point(214, 20);
+            this.button21.Location = new System.Drawing.Point(111, 20);
             this.button21.Name = "button21";
             this.button21.Size = new System.Drawing.Size(97, 31);
             this.button21.TabIndex = 12;
             this.button21.Text = "修改滞纳金";
             this.button21.UseVisualStyleBackColor = true;
-            // 
-            // button23
-            // 
-            this.button23.Location = new System.Drawing.Point(111, 20);
-            this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(97, 31);
-            this.button23.TabIndex = 10;
-            this.button23.Text = "查询用户";
-            this.button23.UseVisualStyleBackColor = true;
-            // 
-            // button22
-            // 
-            this.button22.Location = new System.Drawing.Point(111, 57);
-            this.button22.Name = "button22";
-            this.button22.Size = new System.Drawing.Size(97, 31);
-            this.button22.TabIndex = 11;
-            this.button22.Text = "修改用户";
-            this.button22.UseVisualStyleBackColor = true;
+            this.button21.Click += new System.EventHandler(this.button21_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(452, 571);
+            this.ClientSize = new System.Drawing.Size(452, 528);
             this.ControlBox = false;
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
@@ -404,11 +364,7 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button15;
-        private System.Windows.Forms.Button button14;
         private System.Windows.Forms.Button button25;
-        private System.Windows.Forms.Button button24;
         private System.Windows.Forms.Button button21;
-        private System.Windows.Forms.Button button23;
-        private System.Windows.Forms.Button button22;
     }
 }

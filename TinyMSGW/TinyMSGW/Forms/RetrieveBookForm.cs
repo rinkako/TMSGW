@@ -24,7 +24,9 @@ namespace TinyMSGW.Forms
         public RetrieveBookForm()
         {
             InitializeComponent();
-            this.comboBox1.SelectedIndex = 0;
+            //this.comboBox1.SelectedIndex = 0;
+            // 做一次默认查询
+            this.button1_Click(null, null);
         }
 
         /// <summary>
@@ -33,7 +35,8 @@ namespace TinyMSGW.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             Object ds;
-            this.adapter.ListAllLibraryBook(out ds, this.textBox1.Text, this.comboBox1.SelectedIndex == 0 ? String.Empty : this.comboBox1.SelectedValue.ToString());
+            //this.adapter.ListAllLibraryBook(out ds, this.textBox1.Text, this.comboBox1.SelectedIndex == 0 ? String.Empty : this.comboBox1.SelectedValue.ToString());
+            this.adapter.ListAllLibraryBook(out ds, this.textBox1.Text, String.Empty);
             this.dataGridView1.DataSource = (ds as DataSet).Tables[0].DefaultView;
         }
 
@@ -42,6 +45,7 @@ namespace TinyMSGW.Forms
         /// </summary>
         private void button2_Click(object sender, EventArgs e)
         {
+            this.Owner.Show();
             this.Close();
         }
 
@@ -51,7 +55,8 @@ namespace TinyMSGW.Forms
         private void dataGridView1_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             string isbn = (string)this.dataGridView1.Rows[e.RowIndex].Cells[0].Value;
-
+            BookDetailForm bdf = new BookDetailForm(isbn);
+            bdf.ShowDialog(this);
         }
     }
 }

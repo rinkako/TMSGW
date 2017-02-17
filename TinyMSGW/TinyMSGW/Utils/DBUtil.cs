@@ -4,6 +4,7 @@ using System.Configuration;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
+using GDP = TinyMSGW.GlobalDataPackage;
 
 namespace TinyMSGW.Utils
 {
@@ -13,7 +14,8 @@ namespace TinyMSGW.Utils
     public abstract class DBUtil
     {
         //数据库连接字符串
-        public static string Conn = "Database='tinygwarehouse';Data Source='localhost';User Id='root';Password='miniserver';charset='utf8';pooling=true";
+        public static string Conn = String.Format("Database='{0}';Data Source='{1}';User Id='{2}';Password='{3}';charset='utf8';pooling=true",
+            GDP.DBName, GDP.DBServerIPAddress, GDP.DBUsername, GDP.DBPassword);
 
         // 用于缓存参数的HASH表
         private static Hashtable parmCache = Hashtable.Synchronized(new Hashtable());
@@ -120,22 +122,20 @@ namespace TinyMSGW.Utils
         }
 
         /// <summary>
-        /// 返回DataSet
+        /// 提交查询，返回DataSet
         /// </summary>
         /// <param name="connectionString">一个有效的连接字符串</param>
         /// <param name="cmdType">命令类型(存储过程, 文本, 等等)</param>
         /// <param name="cmdText">存储过程名称或者sql命令语句</param>
         /// <param name="commandParameters">执行命令所用参数的集合</param>
-        /// <returns></returns>
-        public static DataSet GetDataSet(string connectionString, CommandType cmdType, string cmdText, params MySqlParameter[] commandParameters)
+        /// <returns>查询结果的DataSet</returns>
+        public static DataSet CommitToDB(string connectionString, CommandType cmdType, string cmdText, params MySqlParameter[] commandParameters)
         {
             //创建一个MySqlCommand对象
             MySqlCommand cmd = new MySqlCommand();
             //创建一个MySqlConnection对象
             MySqlConnection conn = new MySqlConnection(connectionString);
-
-            //在这里我们用一个try/catch结构执行sql文本命令/存储过程，因为如果这个方法产生一个异常我们要关闭连接，因为没有读取器存在，
-
+            //在这里我们用一个try/catch结构执行sql文本命令/存储过程，因为如果这个方法产生一个异常我们要关闭连接，因为没有读取器存在
             try
             {
                 //调用 PrepareCommand 方法，对 MySqlCommand 对象设置参数
@@ -144,11 +144,12 @@ namespace TinyMSGW.Utils
                 MySqlDataAdapter adapter = new MySqlDataAdapter();
                 adapter.SelectCommand = cmd;
                 DataSet ds = new DataSet();
-
                 adapter.Fill(ds);
                 //清除参数
                 cmd.Parameters.Clear();
                 conn.Close();
+                // 保存一些设置量
+                ViewModel.SettingManager.WriteCounterToStable();
                 return ds;
             }
             catch (Exception e)

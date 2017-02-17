@@ -13,6 +13,7 @@ namespace TinyMSGW
         {
             // debug
             Adapter.AdapterFactory.InitAdapter();
+            ViewModel.SettingManager.ReadSettingToGDP();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

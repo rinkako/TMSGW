@@ -14,7 +14,7 @@ namespace TinyMSGW.Forms
     /// <summary>
     /// 窗体：主窗体
     /// </summary>
-    public partial class MainForm : Form
+    public partial class  MainForm : Form
     {
         /// <summary>
         /// 适配器
@@ -70,7 +70,8 @@ namespace TinyMSGW.Forms
         private void button1_Click(object sender, EventArgs e)
         {
             RetrieveBookForm rbf = new RetrieveBookForm();
-            rbf.ShowDialog(this);
+            rbf.Show(this);
+            this.Hide();
         }
 
         /// <summary>
@@ -81,9 +82,46 @@ namespace TinyMSGW.Forms
             // 后台退出登录
             this.adapter.Logout();
             // 切换到登录窗体
-            LoginForm lf = new LoginForm();
-            lf.Show();
+            this.Owner.Show();
+            this.Close();
+        }
+
+        /// <summary>
+        /// 按钮：管理用户
+        /// </summary>
+        private void button25_Click(object sender, EventArgs e)
+        {
+            // 切换窗体
+            UserManageForm umf = new UserManageForm();
+            umf.Show(this);
             this.Hide();
+        }
+
+        /// <summary>
+        /// 按钮：修改滞纳金
+        /// </summary>
+        private void button21_Click(object sender, EventArgs e)
+        {
+            DelayFeeSettingForm dfsf = new DelayFeeSettingForm();
+            dfsf.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 按钮：修改归还最长期限
+        /// </summary>
+        private void button15_Click(object sender, EventArgs e)
+        {
+            ReturnDaySettingForm rdsf = new ReturnDaySettingForm();
+            rdsf.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 按钮：系统设置
+        /// </summary>
+        private void button13_Click(object sender, EventArgs e)
+        {
+            OtherSettingForm osf = new OtherSettingForm();
+            osf.ShowDialog(this);
         }
     }
 }
