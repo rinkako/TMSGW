@@ -123,5 +123,33 @@ namespace TinyMSGW.Forms
             OtherSettingForm osf = new OtherSettingForm();
             osf.ShowDialog(this);
         }
+
+        /// <summary>
+        /// 按钮：自主还书
+        /// </summary>
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (GlobalDataPackage.CurrentUser.CardID == -1)
+            {
+                MessageBox.Show("您还未开通借书卡，请到柜台开通");
+                return;
+            }
+            ReturnBookForm rbf = new ReturnBookForm();
+            rbf.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 按钮：管理我的借书卡
+        /// </summary>
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (GlobalDataPackage.CurrentUser.CardID == -1)
+            {
+                MessageBox.Show("您还未开通借书卡，请到柜台开通");
+                return;
+            }
+            RentlogForm rlf = new RentlogForm();
+            rlf.ShowDialog(this);
+        }
     }
 }

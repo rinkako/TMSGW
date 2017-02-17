@@ -19,6 +19,11 @@ namespace TinyMSGW.Forms
         private IActionAdapter adapter = AdapterFactory.GetAdapter();
 
         /// <summary>
+        /// 图书实例
+        /// </summary>
+        private Book bk;
+
+        /// <summary>
         /// 构造器
         /// </summary>
         /// <param name="isbn">要查询的书籍的ISBN</param>
@@ -26,22 +31,21 @@ namespace TinyMSGW.Forms
         {
             InitializeComponent();
             // 读取图书数据
-            Book bk;
-            this.adapter.RetrieveBook(isbn, out bk);
+            this.adapter.RetrieveBook(isbn, out this.bk);
             // 渲染到前端
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(String.Format("名字: {0}", bk.Name));
-            sb.AppendLine(String.Format("ISBN: {0}", bk.ISBN));
-            sb.AppendLine(String.Format("作者: {0}", bk.Author));
-            sb.AppendLine(String.Format("类型: {0}", bk.Type));
-            sb.AppendLine(String.Format("出版年: {0}", bk.PublishYear));
-            sb.AppendLine(String.Format("定价: {0}", bk.Value));
+            sb.AppendLine(String.Format("名字: {0}", this.bk.Name));
+            sb.AppendLine(String.Format("ISBN: {0}", this.bk.ISBN));
+            sb.AppendLine(String.Format("作者: {0}", this.bk.Author));
+            sb.AppendLine(String.Format("类型: {0}", this.bk.Type));
+            sb.AppendLine(String.Format("出版年: {0}", this.bk.PublishYear));
+            sb.AppendLine(String.Format("定价: {0}", this.bk.Value));
             sb.AppendLine();
-            sb.AppendLine(String.Format("馆藏位置: {0}", bk.LocationOfLibrary));
-            sb.AppendLine(String.Format("数量: {0}/{1}", bk.NumberInLibrary, bk.NumberInLibrary + bk.NumberInRenting));
+            sb.AppendLine(String.Format("馆藏位置: {0}", this.bk.LocationOfLibrary));
+            sb.AppendLine(String.Format("数量: {0}/{1}", this.bk.NumberInLibrary - this.bk.NumberInRenting, this.bk.NumberInLibrary));
             this.textBox1.Text = sb.ToString();
             // 如果没有余量那么不能租借
-            if (bk.NumberInLibrary == 0)
+            if (this.bk.NumberInLibrary - this.bk.NumberInRenting == 0)
             {
                 this.button2.Enabled = false;
             }
@@ -62,7 +66,35 @@ namespace TinyMSGW.Forms
         /// </summary>
         private void button2_Click(object sender, EventArgs e)
         {
-
+            // 检查是否已经有借书卡
+            if (GlobalDataPackage.CurrentUser.CardID == -1)
+            {
+                MessageBox.Show("当前账户还没有办理借书卡，请到柜台办理，才可以租借图书");
+                return;
+            }
+            // 检查是否已经租借此书
+            List<Book> bkList;
+            List<RentLog> rList;
+            this.adapter.ListAllRentingBook(GlobalDataPackage.CurrentUser.UserName, false, out bkList, out rList);
+            if (bkList.Count > 0)
+            {
+                MessageBox.Show("当前账户已经租借了本图书并且还未归还，不能再租借");
+                return;
+            }
+            // 检查是否有任何延期没归还图书
+            if (rList.Find((x) => x.OughtReturnTimestamp < DateTime.Now) != null)
+            {
+                MessageBox.Show("当前账户有延期为归还的图书，暂时不可租借任何图书，请先归还延期的图书");
+                return;
+            }
+            // 提交租借请求
+            Usercard cardDescriptor = new Usercard()
+            {
+                UsercardID = GlobalDataPackage.CurrentUser.CardID
+            };
+            this.adapter.CustomerRentBook(this.bk, cardDescriptor);
+            MessageBox.Show("租借成功！");
+            this.Close();
         }
     }
 }

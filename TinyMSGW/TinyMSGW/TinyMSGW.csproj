@@ -91,11 +91,23 @@
     <Compile Include="Forms\RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\RentlogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RentlogForm.Designer.cs">
+      <DependentUpon>RentlogForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RetrieveBookForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\RetrieveBookForm.Designer.cs">
       <DependentUpon>RetrieveBookForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ReturnBookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReturnBookForm.Designer.cs">
+      <DependentUpon>ReturnBookForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Forms\ReturnDaySettingForm.cs">
       <SubType>Form</SubType>
@@ -158,8 +170,14 @@
     <EmbeddedResource Include="Forms\RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RentlogForm.resx">
+      <DependentUpon>RentlogForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\RetrieveBookForm.resx">
       <DependentUpon>RetrieveBookForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReturnBookForm.resx">
+      <DependentUpon>ReturnBookForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ReturnDaySettingForm.resx">
       <DependentUpon>ReturnDaySettingForm.cs</DependentUpon>

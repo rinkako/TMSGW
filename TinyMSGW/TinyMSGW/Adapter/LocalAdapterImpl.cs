@@ -420,5 +420,10 @@ namespace TinyMSGW.Adapter
         {
             throw new NotImplementedException();
         }
+
+        public bool ListAllRentingBook(string username, bool allFlag, out List<Book> outList, out List<RentLog> logList)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

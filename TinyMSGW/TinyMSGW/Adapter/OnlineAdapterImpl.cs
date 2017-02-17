@@ -71,12 +71,46 @@ namespace TinyMSGW.Adapter
 
         public bool CustomerRentBook(Book book, Usercard card)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // 更新BOOK记录
+                string UpdateClause = "update tw_book set tw_book.NumberInRenting = tw_book.NumberInRenting + 1 where tw_book.ISBN = '" + book.ISBN + "'";
+                DataSet UpdateDs = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, UpdateClause, null);
+                // 更新RENTLOG记录
+                string LogClause = "insert into tw_rentlog (RentID, BorrowUsercardID, RentBookISBN, BorrowTimestamp, OughtReturnTimestamp, IsPaidDelayFee) values (" +
+                     (GlobalDataPackage.GlobalCounterRentLogID++) + ", " + card.UsercardID + ", '" + book.ISBN + "', '" +
+                     DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', '" + (DateTime.Now.AddDays(GlobalDataPackage.ReturnDaySpan)).ToString("yyyy-MM-dd HH:mm:ss") +
+                     "', 0)";
+                DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, LogClause, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: " + e.ToString());
+                return false;
+            }
         }
 
         public bool CustomerReturnBook(Book book, Usercard card)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // 更新BOOK记录
+                string UpdateClause = "update tw_book set tw_book.NumberInRenting = tw_book.NumberInRenting - 1 where tw_book.ISBN = '" + book.ISBN + "'";
+                DataSet UpdateDs = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, UpdateClause, null);
+                // 更新RENTLOG记录
+                string LogClause = "update tw_rentlog set tw_rentlog.ActualReturnTimestamp = '" +
+                    (DateTime.Now.AddDays(GlobalDataPackage.ReturnDaySpan)).ToString("yyyy-MM-dd HH:mm:ss") + "', tw_rentlog.IsPaidDelayFee = 1 where tw_rentlog.RentBookISBN = '" +
+                    book.ISBN + "' and tw_rentlog.BorrowUsercardID = " + card.UsercardID;
+
+                DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, LogClause, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: " + e.ToString());
+                return false;
+            }
         }
 
         public bool DeleteUser(User user)
@@ -195,6 +229,57 @@ namespace TinyMSGW.Adapter
             {
                 LogUtil.Log("ERROR: " + e.ToString());
                 outDataSet = null;
+                return false;
+            }
+        }
+
+        public bool ListAllRentingBook(string username, bool allFlag, out List<Book> outList, out List<RentLog> logList)
+        {
+            try
+            {
+                string userClause = "select * from tw_user where tw_user.UserName = '" + username +"'";
+                var cardID = (int)(DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, userClause, null).Tables[0].Rows[0]["CardID"]);
+                if (cardID == -1)
+                {
+                    outList = null;
+                    logList = null;
+                    return false;
+                }
+                string jClause = "select * from tw_rentlog inner join tw_book on tw_rentlog.RentBookISBN = tw_book.ISBN where tw_rentlog.BorrowUsercardID = " + cardID;
+                if (allFlag == false)
+                {
+                    jClause += " and tw_rentlog.ActualReturnTimestamp IS NULL";
+                }
+                var dataTable = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, jClause, null).Tables[0];
+                outList = new List<Book>();
+                logList = new List<RentLog>();
+                for (int i = 0; i < dataTable.Rows.Count; i++)
+                {
+                    var rObj = dataTable.Rows[i];
+                    Book bk = new Book()
+                    {
+                        ISBN = (string)rObj["ISBN"],
+                        Name = (string)rObj["Name"],
+                        Author = (string)rObj["Author"],
+                        Type = (string)rObj["Type"],
+                        PublishYear = (int)rObj["PublishYear"]
+                    };
+                    outList.Add(bk);
+                    RentLog rl = new RentLog()
+                    {
+                       BorrowTimestamp = (DateTime)rObj["BorrowTimestamp"],
+                       OughtReturnTimestamp = (DateTime)rObj["OughtReturnTimestamp"],
+                       ActualReturnTimestamp = rObj["ActualReturnTimestamp"].GetType() == typeof(DBNull) ? null : (DateTime?)rObj["ActualReturnTimestamp"]
+                    };
+                    logList.Add(rl);
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: List All Renting Book Failed: " + e.ToString());
+                outList = null;
+                logList = null;
                 return false;
             }
         }

@@ -203,6 +203,16 @@ namespace TinyMSGW.Adapter
         bool ListAllStoringBook(Warehouse w, out object outDataSet);
 
         /// <summary>
+        /// 列出用户所借所有图书
+        /// </summary>
+        /// <param name="username">要查询的用户名</param>
+        /// <param name="allFlag">是否列出已还记录</param>
+        /// <param name="outList">[out] 所借书籍向量</param>
+        /// <param name="logList">[out] 对应借书记录向量</param>
+        /// <returns>操作成功与否</returns>
+        bool ListAllRentingBook(string username, bool allFlag, out List<Book> outList, out List<RentLog> logList);
+
+        /// <summary>
         /// 列出所有图书
         /// </summary>
         /// <param name="outDataSet">[out] 要传出的数据集</param>
