@@ -272,7 +272,14 @@ namespace TinyMSGW.Adapter
             try
             {
                 string userClause = "select * from tw_user where tw_user.UserName = '" + username +"'";
-                var cardID = (int)(DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, userClause, null).Tables[0].Rows[0]["CardID"]);
+                var tbrowC = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, userClause, null).Tables[0].Rows;
+                if (tbrowC.Count == 0)
+                {
+                    logList = null;
+                    outList = null;
+                    return false;
+                }
+                var cardID = (int)tbrowC[0]["CardID"];
                 if (cardID == -1)
                 {
                     outList = null;

@@ -50,12 +50,13 @@ namespace TinyMSGW.Forms
             // 渲染控件
             List<Book> bookList;
             List<RentLog> logList;
-            this.adapter.ListAllRentingBook(GlobalDataPackage.CurrentUser.UserName, false, out bookList, out logList);
+            this.adapter.ListAllRentingBook(this.textBox1.Text.Trim(), false, out bookList, out logList);
             if (bookList == null)
             {
                 MessageBox.Show("查无此人");
                 return;
             }
+            this.dataGridView1.Rows.Clear();
             for (int i = 0; i < bookList.Count; i++)
             {
                 var b = bookList[i];
@@ -94,14 +95,14 @@ namespace TinyMSGW.Forms
                 double bValue = isOnlyDelay ? 0 : (double)rowItem.Cells["Column7"].Value;
                 // 再结算滞纳金
                 double dValue = 0.0f;
-                var otime = DateTime.Parse((string)rowItem.Cells["Column6"].Value);
+                var otime = (DateTime)rowItem.Cells["Column6"].Value;
                 var ctime = DateTime.Now;
                 if (otime < ctime)
                 {
                     dValue = (ctime - otime).Days * GlobalDataPackage.DelayFeeADay;
                 }
                 // 提示柜员收钱
-                var dr = MessageBox.Show(String.Format("当前处理赔偿：{0}书籍：{1}{0}ISBN：{2}{0}成本：{3}{0}，滞纳金：{4}{0}--------{0}合计：{5}{0}",
+                var dr = MessageBox.Show(String.Format("当前处理赔偿：{0}书籍：{1}{0}ISBN：{2}{0}成本：{3}{0}滞纳金：{4}{0}--------{0}合计：{5}{0}",
                     Environment.NewLine, (string)(rowItem.Cells["Column2"].Value), (string)(rowItem.Cells["Column1"].Value),
                     bValue, dValue, bValue + dValue), "确认", MessageBoxButtons.OKCancel, MessageBoxIcon.Information, MessageBoxDefaultButton.Button1);
                 if (dr == DialogResult.OK)

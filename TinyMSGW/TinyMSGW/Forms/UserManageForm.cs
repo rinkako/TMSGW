@@ -134,7 +134,7 @@ namespace TinyMSGW.Forms
             {
                 var rowItem = rowC[0];
                 // 重复性检验
-                if ((string)(rowItem.Cells["CardID"].Value) != "-1")
+                if ((int)rowItem.Cells["CardID"].Value != -1)
                 {
                     MessageBox.Show("该用户已经办理借书卡了");
                     return;
@@ -162,7 +162,7 @@ namespace TinyMSGW.Forms
             {
                 var rowItem = rowC[0];
                 // 重复性检验
-                if ((string)(rowItem.Cells["CardID"].Value) == "-1")
+                if ((int)rowItem.Cells["CardID"].Value == -1)
                 {
                     MessageBox.Show("该用户并未拥有借书卡");
                     return;

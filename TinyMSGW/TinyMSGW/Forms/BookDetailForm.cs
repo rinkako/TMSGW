@@ -76,7 +76,7 @@ namespace TinyMSGW.Forms
             List<Book> bkList;
             List<RentLog> rList;
             this.adapter.ListAllRentingBook(GlobalDataPackage.CurrentUser.UserName, false, out bkList, out rList);
-            if (bkList.Count > 0)
+            if (bkList.Find((x) => x.ISBN == this.bk.ISBN) != null)
             {
                 MessageBox.Show("当前账户已经租借了本图书并且还未归还，不能再租借");
                 return;
