@@ -25,6 +25,13 @@ namespace TinyMSGW.Forms
         public UserManageForm()
         {
             InitializeComponent();
+            // 权限控制
+            if (GlobalDataPackage.CurrentUser.Type == Enums.UserType.Librarian)
+            {
+                this.button3.Visible = this.button4.Visible = this.button5.Visible = false;
+                this.button7.Location = this.button3.Location;
+                this.button6.Location = this.button4.Location;
+            }
             // 刷新
             this.button1_Click(null, null);
         }
@@ -115,6 +122,65 @@ namespace TinyMSGW.Forms
             uaef.ShowDialog(this);
             // 刷新
             this.button1_Click(null, null);
+        }
+
+        /// <summary>
+        /// 按钮：办理借书卡
+        /// </summary>
+        private void button6_Click(object sender, EventArgs e)
+        {
+            var rowC = this.dataGridView1.SelectedRows;
+            if (rowC.Count > 0)
+            {
+                var rowItem = rowC[0];
+                // 重复性检验
+                if ((string)(rowItem.Cells["CardID"].Value) != "-1")
+                {
+                    MessageBox.Show("该用户已经办理借书卡了");
+                    return;
+                }
+                // 提交更改
+                User userDescriptor = new User()
+                {
+                    UserID = Convert.ToInt32((string)(rowItem.Cells["UserID"].Value))
+                };
+                Usercard outCard;
+                this.adapter.CustomerHandleUsercard(userDescriptor, out outCard);
+                MessageBox.Show("办理成功！");
+                // 刷新
+                this.button1_Click(null, null);
+            }
+        }
+
+        /// <summary>
+        /// 按钮：注销借书卡
+        /// </summary>
+        private void button7_Click(object sender, EventArgs e)
+        {
+            var rowC = this.dataGridView1.SelectedRows;
+            if (rowC.Count > 0)
+            {
+                var rowItem = rowC[0];
+                // 重复性检验
+                if ((string)(rowItem.Cells["CardID"].Value) == "-1")
+                {
+                    MessageBox.Show("该用户并未拥有借书卡");
+                    return;
+                }
+                // 提交更改
+                User userDescriptor = new User()
+                {
+                    UserID = Convert.ToInt32((string)(rowItem.Cells["UserID"].Value))
+                };
+                Usercard cardDescriptor = new Usercard()
+                {
+                    UsercardID = Convert.ToInt32((string)(rowItem.Cells["CardID"].Value))
+                };
+                this.adapter.CustomerCancelUsercard(userDescriptor, cardDescriptor);
+                MessageBox.Show("注销成功！");
+                // 刷新
+                this.button1_Click(null, null);
+            }
         }
     }
 }

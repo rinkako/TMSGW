@@ -85,6 +85,12 @@
     <Compile Include="Forms\OtherSettingForm.Designer.cs">
       <DependentUpon>OtherSettingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\PayLostForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PayLostForm.Designer.cs">
+      <DependentUpon>PayLostForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -166,6 +172,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\OtherSettingForm.resx">
       <DependentUpon>OtherSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PayLostForm.resx">
+      <DependentUpon>PayLostForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>

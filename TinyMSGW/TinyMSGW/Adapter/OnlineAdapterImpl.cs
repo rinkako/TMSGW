@@ -56,19 +56,54 @@ namespace TinyMSGW.Adapter
 
         public bool CustomerCancelUsercard(User user, Usercard card)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // 更新User记录
+                string UpdateClause = "update tw_user set tw_user.CardID = -1 where tw_user.UserID = " + user.UserID;
+                DataSet UpdateDs = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, UpdateClause, null);
+                // 更新Usercard记录
+                string cardClause = "update tw_usercard set tw_usercard.Valid = 0 where tw_usercard.CardID = " + card.UsercardID;
+                DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, cardClause, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: " + e.ToString());
+                card = null;
+                return false;
+            }
         }
 
         public bool CustomerHandleUsercard(User user, out Usercard card)
         {
-            throw new NotImplementedException();
+            try
+            {
+                // 更新User记录
+                string UpdateClause = "update tw_user set tw_user.CardID = " + (GlobalDataPackage.GlobalCounterUsercardID++) +
+                    " where tw_user.UserID = " + user.UserID;
+                DataSet UpdateDs = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, UpdateClause, null);
+                // 更新Usercard记录
+                var ctime = DateTime.Now;
+                string InsertClause = "insert into tw_usercard (UsercardID, UserID, RegisteTimestamp, Valid) values (" +
+                     GlobalDataPackage.GlobalCounterUsercardID + ", " + user.UserID + ", '" +
+                     ctime.ToString("yyyy-MM-dd HH:mm:ss") + "', 0)";
+                DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, InsertClause, null);
+                card = new Usercard()
+                {
+                    UsercardID = GlobalDataPackage.GlobalCounterUsercardID,
+                    UserID = user.UserID,
+                    RegisteTimestamp = ctime
+                };
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: " + e.ToString());
+                card = null;
+                return false;
+            }
         }
-
-        public bool CustomerMissAndPayForBook(User user, Book book, out double pay)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public bool CustomerRentBook(Book book, Usercard card)
         {
             try
@@ -102,7 +137,6 @@ namespace TinyMSGW.Adapter
                 string LogClause = "update tw_rentlog set tw_rentlog.ActualReturnTimestamp = '" +
                     (DateTime.Now.AddDays(GlobalDataPackage.ReturnDaySpan)).ToString("yyyy-MM-dd HH:mm:ss") + "', tw_rentlog.IsPaidDelayFee = 1 where tw_rentlog.RentBookISBN = '" +
                     book.ISBN + "' and tw_rentlog.BorrowUsercardID = " + card.UsercardID;
-
                 DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, LogClause, null);
                 return true;
             }
@@ -262,6 +296,7 @@ namespace TinyMSGW.Adapter
                         Name = (string)rObj["Name"],
                         Author = (string)rObj["Author"],
                         Type = (string)rObj["Type"],
+                        Value = (double)rObj["Value"],
                         PublishYear = (int)rObj["PublishYear"]
                     };
                     outList.Add(bk);
@@ -410,12 +445,7 @@ namespace TinyMSGW.Adapter
                 return false;
             }
         }
-
-        public bool RetrieveDelayFee(Usercard card, out double fee)
-        {
-            throw new NotImplementedException();
-        }
-
+        
         public bool RetrieveUser(string username, out Dictionary<string, string> descriptor)
         {
             try
@@ -427,6 +457,7 @@ namespace TinyMSGW.Adapter
                     descriptor = new Dictionary<string, string>();
                     descriptor.Add("phone", (string)resDt.Rows[0]["UserPhone"]);
                     descriptor.Add("type", resDt.Rows[0]["Type"].ToString());
+                    descriptor.Add("cardid", resDt.Rows[0]["CardID"].ToString());
                 }
                 return true;
             }

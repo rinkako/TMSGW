@@ -119,20 +119,6 @@ namespace TinyMSGW.Adapter
             return false;
         }
 
-        public bool CustomerMissAndPayForBook(User user, Book book, out double pay)
-        {
-            // 注销借书记录
-            Usercard ucard = user.Card;
-            RentLog rlog = ucard.BorrowingList.Find((x) => x.RentBookISBN == book.ISBN);
-            // 直接记为按时归还
-            rlog.ActualReturnTimestamp = rlog.OughtReturnTimestamp;
-            // 书的借出计数少一，但库存不增加
-            book.NumberInRenting--;
-            // 输出需要赔偿的价钱
-            pay = book.Value;
-            return true;
-        }
-
         public bool DeleteUser(User user)
         {
             // 权限检查
@@ -346,12 +332,6 @@ namespace TinyMSGW.Adapter
             SettingManager.WriteSettingToStable();
             // 登出用户
             GDP.CurrentUser = null;
-            return true;
-        }
-  
-        public bool RetrieveDelayFee(Usercard card, out double fee)
-        {
-            fee = card.DelayFee;
             return true;
         }
 

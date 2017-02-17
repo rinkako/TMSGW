@@ -151,5 +151,24 @@ namespace TinyMSGW.Forms
             RentlogForm rlf = new RentlogForm();
             rlf.ShowDialog(this);
         }
+
+        /// <summary>
+        /// 按钮：收缴赔偿金
+        /// </summary>
+        private void button12_Click(object sender, EventArgs e)
+        {
+            PayLostForm plf = new PayLostForm();
+            plf.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 按钮：借书卡管理
+        /// </summary>
+        private void button9_Click(object sender, EventArgs e)
+        {
+            // 通用用户管理界面
+            UserManageForm umf = new UserManageForm();
+            umf.ShowDialog(this);
+        }
     }
 }

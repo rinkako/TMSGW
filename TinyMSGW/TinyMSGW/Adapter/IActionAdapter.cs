@@ -45,15 +45,6 @@ namespace TinyMSGW.Adapter
         /// <param name="card">[out] 办理得到的借书卡</param>
         /// <returns>操作成功与否</returns>
         bool CustomerHandleUsercard(User user, out Usercard card);
-
-        /// <summary>
-        /// 客户丢失了一本书并进行赔偿
-        /// </summary>
-        /// <param name="user">要处理的用户</param>
-        /// <param name="book">丢失的书籍</param>
-        /// <param name="pay">[out] 需要付的钱</param>
-        /// <returns>操作成功与否</returns>
-        bool CustomerMissAndPayForBook(User user, Book book, out double pay);
         #endregion
 
         #region 管理员动作
@@ -161,14 +152,6 @@ namespace TinyMSGW.Adapter
         #endregion
 
         #region 公共动作
-        /// <summary>
-        /// 获取一张借书卡的滞纳金
-        /// </summary>
-        /// <param name="card">要查询的借书卡</param>
-        /// <param name="fee">[out] 滞纳金</param>
-        /// <returns>操作成功与否</returns>
-        bool RetrieveDelayFee(Usercard card, out double fee);
-
         /// <summary>
         /// 修改一本书的信息
         /// </summary>
