@@ -1,10 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 using TinyMSGW.Utils;
@@ -31,8 +26,8 @@ namespace TinyMSGW.Forms
         /// </summary>
         private void radioButton1_CheckedChanged(object sender, EventArgs e)
         {
-            this.groupBox1.Visible = this.radioButton2.Checked;
-            this.Height = this.radioButton2.Checked ? 444 : 272;
+            //this.groupBox1.Visible = this.radioButton2.Checked;
+            //this.Height = this.radioButton2.Checked ? 444 : 272;
         }
 
         /// <summary>
@@ -52,13 +47,13 @@ namespace TinyMSGW.Forms
             paraDict.Add("AdminName", this.textBox5.Text.Trim());
             paraDict.Add("AdminPasswordSHA1", CommonUtil.EncryptToSHA1(this.textBox6.Text));
             // 选择单机
-            if (this.radioButton1.Checked)
-            {
-                SettingManager.InitFirstTimeSettings(true, paraDict);
-            }
+            //if (this.radioButton1.Checked)
+            //{
+            //    SettingManager.InitFirstTimeSettings(true, paraDict);
+            //}
             // 选择联机
-            else
-            {
+            //else
+            //{
                 // 检查输入的合法性
                 if (this.textBox2.Text.Trim() == String.Empty ||
                     this.textBox3.Text.Trim() == String.Empty ||
@@ -76,7 +71,12 @@ namespace TinyMSGW.Forms
                 paraDict.Add("DBUsername", this.textBox3.Text.Trim());
                 paraDict.Add("DBPassword", this.textBox4.Text);
                 SettingManager.InitFirstTimeSettings(false, paraDict);
-            }
+            //}
+            // 初始化适配器，进入登陆界面
+            Adapter.AdapterFactory.InitAdapter();
+            LoginForm lf = new LoginForm();
+            lf.Show(this);
+            this.Hide();
         }
     }
 }

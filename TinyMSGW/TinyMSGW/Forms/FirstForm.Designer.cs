@@ -28,10 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.numericUpDown4 = new System.Windows.Forms.NumericUpDown();
             this.numericUpDown3 = new System.Windows.Forms.NumericUpDown();
@@ -59,19 +57,6 @@
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
-            // radioButton1
-            // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Checked = true;
-            this.radioButton1.Location = new System.Drawing.Point(14, 70);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(71, 16);
-            this.radioButton1.TabIndex = 1;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "单机使用";
-            this.radioButton1.UseVisualStyleBackColor = true;
-            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -89,17 +74,6 @@
             this.label2.Size = new System.Drawing.Size(209, 12);
             this.label2.TabIndex = 3;
             this.label2.Text = "请为首次使用本系统配置一些软件设置";
-            // 
-            // radioButton2
-            // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(114, 70);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(71, 16);
-            this.radioButton2.TabIndex = 4;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "联机使用";
-            this.radioButton2.UseVisualStyleBackColor = true;
             // 
             // groupBox1
             // 
@@ -134,6 +108,11 @@
             this.numericUpDown4.Name = "numericUpDown4";
             this.numericUpDown4.Size = new System.Drawing.Size(39, 21);
             this.numericUpDown4.TabIndex = 12;
+            this.numericUpDown4.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
             // 
             // numericUpDown3
             // 
@@ -170,6 +149,11 @@
             this.numericUpDown1.Name = "numericUpDown1";
             this.numericUpDown1.Size = new System.Drawing.Size(39, 21);
             this.numericUpDown1.TabIndex = 9;
+            this.numericUpDown1.Value = new decimal(new int[] {
+            127,
+            0,
+            0,
+            0});
             // 
             // label7
             // 
@@ -196,6 +180,7 @@
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(174, 21);
             this.textBox4.TabIndex = 6;
+            this.textBox4.Text = "miniserver";
             // 
             // label5
             // 
@@ -212,6 +197,7 @@
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(174, 21);
             this.textBox3.TabIndex = 4;
+            this.textBox3.Text = "root";
             // 
             // label4
             // 
@@ -228,6 +214,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(174, 21);
             this.textBox2.TabIndex = 2;
+            this.textBox2.Text = "tinygwarehouse";
             // 
             // label3
             // 
@@ -277,6 +264,7 @@
             this.textBox6.Name = "textBox6";
             this.textBox6.Size = new System.Drawing.Size(174, 21);
             this.textBox6.TabIndex = 9;
+            this.textBox6.Text = "admin";
             // 
             // textBox5
             // 
@@ -284,6 +272,7 @@
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(174, 21);
             this.textBox5.TabIndex = 11;
+            this.textBox5.Text = "1";
             // 
             // label9
             // 
@@ -302,8 +291,6 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -326,11 +313,8 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.RadioButton radioButton2;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox textBox4;

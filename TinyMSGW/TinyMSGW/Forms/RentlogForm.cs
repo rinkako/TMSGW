@@ -1,6 +1,4 @@
-﻿using System;
-using System.Data;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using TinyMSGW.Entity;
 using TinyMSGW.Adapter;

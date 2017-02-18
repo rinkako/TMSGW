@@ -1,7 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Text;
-using TinyMSGW.ViewModel;
 
 namespace TinyMSGW.Utils
 {

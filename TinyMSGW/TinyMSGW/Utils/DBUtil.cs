@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Configuration;
-using MySql.Data;
 using MySql.Data.MySqlClient;
 using System.Data;
 using GDP = TinyMSGW.GlobalDataPackage;
