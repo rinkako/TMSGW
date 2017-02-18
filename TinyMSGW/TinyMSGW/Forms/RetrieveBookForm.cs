@@ -33,7 +33,7 @@ namespace TinyMSGW.Forms
             // 权限检查
             if (manager == false)
             {
-                this.button3.Visible = this.button4.Visible = this.button5.Visible = false;
+                this.button3.Visible = this.button4.Visible = this.button5.Visible = this.button6.Visible = false;
             }
             else
             {
@@ -92,9 +92,24 @@ namespace TinyMSGW.Forms
                 var rowItem = rowC[0];
                 Book bkDescriptor = new Book()
                 {
-                    ISBN = (string)rowItem.Cells["ISBN"].Value
+                    ISBN = rowItem.Cells["ISBN"].Value.ToString(),
+                    Author = (string)rowItem.Cells["Author"].Value,
+                    Type = (string)rowItem.Cells["Type"].Value,
+                    Name = (string)rowItem.Cells["Name"].Value,
+                    Value = (double)rowItem.Cells["Value"].Value,
+                    PublishYear = (int)rowItem.Cells["PublishYear"].Value,
+                    LocationOfLibrary = (string)rowItem.Cells["LocationOfLibrary"].Value,
+                    NumberInLibrary = (int)rowItem.Cells["NumberInLibrary"].Value,
+                    NumberInRenting = (int)rowItem.Cells["NumberInRenting"].Value,
+                    StoreIntoLibraryTimestamp = (DateTime)rowItem.Cells["StoreIntoLibraryTimestamp"].Value
                 };
                 this.adapter.LibrarianRestoreBook(bkDescriptor);
+                Warehouse whDescriptor = new Warehouse()
+                {
+                    WarehouseID = 0
+                };
+                StoringBook outSb;
+                this.adapter.KeeperAddBook(whDescriptor, bkDescriptor, bkDescriptor.NumberInLibrary - bkDescriptor.NumberInRenting, out outSb);
                 MessageBox.Show("更改已提交");
                 // 刷新
                 this.button1_Click(null, null);
@@ -141,7 +156,7 @@ namespace TinyMSGW.Forms
             }
             // 提交到后台
             var rowItem = rowC[0];
-            AddBookForm abf = new AddBookForm((string)rowItem.Cells["ISBN"].Value);
+            AddBookForm abf = new AddBookForm(false, (string)rowItem.Cells["ISBN"].Value);
             abf.ShowDialog(this);
         }
 
@@ -150,7 +165,7 @@ namespace TinyMSGW.Forms
         /// </summary>
         private void button3_Click(object sender, EventArgs e)
         {
-            AddBookForm abf = new AddBookForm(String.Empty);
+            AddBookForm abf = new AddBookForm(false, String.Empty);
             abf.ShowDialog(this);
         }
     }

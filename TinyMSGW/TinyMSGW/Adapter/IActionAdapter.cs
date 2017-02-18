@@ -170,6 +170,15 @@ namespace TinyMSGW.Adapter
         bool RetrieveBook(string isbn, out Book outBook);
 
         /// <summary>
+        /// 获取一本库存书的信息
+        /// </summary>
+        /// <param name="w">要查询的仓库</param>
+        /// <param name="isbn">要查询的图书的ISBN</param>
+        /// <param name="outBook">[out] 查询到的图书实例</param>
+        /// <returns>操作成功与否</returns>
+        bool RetrieveStoringBook(Warehouse w, string isbn, out StoringBook outBook);
+
+        /// <summary>
         /// 列出所有上架图书
         /// </summary>
         /// <param name="outDataSet">[out] 要传出的数据集</param>

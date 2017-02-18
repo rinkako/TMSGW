@@ -68,7 +68,7 @@ namespace TinyMSGW.Adapter
             }
             catch (Exception e)
             {
-                LogUtil.Log("ERROR: " + e.ToString());
+                LogUtil.Log("ERROR: Custom cancel usercard failed: " + e.ToString());
                 card = null;
                 return false;
             }
@@ -98,7 +98,7 @@ namespace TinyMSGW.Adapter
             }
             catch (Exception e)
             {
-                LogUtil.Log("ERROR: " + e.ToString());
+                LogUtil.Log("ERROR: Custom handle usercard failed: " + e.ToString());
                 card = null;
                 return false;
             }
@@ -121,7 +121,7 @@ namespace TinyMSGW.Adapter
             }
             catch (Exception e)
             {
-                LogUtil.Log("ERROR: " + e.ToString());
+                LogUtil.Log("ERROR: Custom rent book failed: " + e.ToString());
                 return false;
             }
         }
@@ -135,14 +135,14 @@ namespace TinyMSGW.Adapter
                 DataSet UpdateDs = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, UpdateClause, null);
                 // 更新RENTLOG记录
                 string LogClause = "update tw_rentlog set tw_rentlog.ActualReturnTimestamp = '" +
-                    (DateTime.Now.AddDays(GlobalDataPackage.ReturnDaySpan)).ToString("yyyy-MM-dd HH:mm:ss") + "', tw_rentlog.IsPaidDelayFee = 1 where tw_rentlog.RentBookISBN = '" +
+                    DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', tw_rentlog.IsPaidDelayFee = 1 where tw_rentlog.RentBookISBN = '" +
                     book.ISBN + "' and tw_rentlog.BorrowUsercardID = " + card.UsercardID;
                 DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, LogClause, null);
                 return true;
             }
             catch (Exception e)
             {
-                LogUtil.Log("ERROR: " + e.ToString());
+                LogUtil.Log("ERROR: Custom return book failed: " + e.ToString());
                 return false;
             }
         }
@@ -163,19 +163,56 @@ namespace TinyMSGW.Adapter
             }
             catch (Exception e)
             {
-                LogUtil.Log("ERROR: " + e.ToString());
+                LogUtil.Log("ERROR: cannot delete user" + e.ToString());
                 return false;
             }
         }
 
         public bool EditBook(Book book, Book newbookDescriptor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string updateClause = "update tw_book set tw_book.ISBN = '" + newbookDescriptor.ISBN + "', " +
+                    "tw_book.Name = '" + newbookDescriptor.Name + "', " +
+                    "tw_book.Author = '" + newbookDescriptor.Author + "', " +
+                    "tw_book.Type = '" + newbookDescriptor.Type + "', " +
+                    "tw_book.PublishYear = " + newbookDescriptor.PublishYear + ", " +
+                    "tw_book.Value = " + newbookDescriptor.Value + ", " +
+                    "tw_book.LocationOfLibrary = '" + newbookDescriptor.LocationOfLibrary + "', " +
+                    "tw_book.NumberInLibrary = " + newbookDescriptor.NumberInLibrary + ", " +
+                    "tw_book.NumberInRenting = " + newbookDescriptor.NumberInRenting +
+                    " where tw_book.ISBN = '" + book.ISBN + "'";
+                DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, updateClause, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: Edit Library Book Failed: " + e.ToString());
+                return false;
+            }
         }
 
         public bool EditStoringBook(Warehouse whouse, StoringBook book, StoringBook newbookDescriptor)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string updateClause = "update tw_storing set tw_storing.ISBN = '" + newbookDescriptor.ISBN + "', " +
+                    "tw_storing.Name = '" + newbookDescriptor.Name + "', " +
+                    "tw_storing.Author = '" + newbookDescriptor.Author + "', " +
+                    "tw_storing.Type = '" + newbookDescriptor.Type + "', " +
+                    "tw_storing.PublishYear = " + newbookDescriptor.PublishYear + ", " +
+                    "tw_storing.Value = " + newbookDescriptor.Value + ", " +
+                    "tw_storing.NumberOfWarehouse = " + newbookDescriptor.NumberOfWarehouse + ", " +
+                    "tw_storing.WarehouseID = " + whouse.WarehouseID +
+                    " where tw_storing.ISBN = '" + book.ISBN + "'";
+                DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, updateClause, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: Edit Storing Book Failed: " + e.ToString());
+                return false;
+            }
         }
 
         public bool EditUser(User user, UserType newType, Dictionary<string, string> paras)
@@ -296,7 +333,7 @@ namespace TinyMSGW.Adapter
                     updateClause = "insert into tw_book (ISBN, Name, Author, Type, Value, PublishYear, LocationOfLibrary, StoreIntoLibraryTimestamp, NumberInLibrary, NumberInRenting) values (" +
                         descriptor.ISBN + ", '" + descriptor.Name + "', '" + descriptor.Author + "', '" + descriptor.Type + "', " + descriptor.Value + ", " +
                         descriptor.PublishYear + ", '" + descriptor.LocationOfLibrary + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
-                        descriptor.NumberInLibrary + ", 0)";
+                        descriptor.NumberInLibrary + ", " + descriptor.NumberInRenting + ")";
                 }
                 DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, updateClause, null);
                 return true;
@@ -450,7 +487,7 @@ namespace TinyMSGW.Adapter
                 string clause = "select * from tw_storing";
                 if (keyword != String.Empty)
                 {
-                    clause += " where tw_book.Name LIKE '%" + keyword + "%'";
+                    clause += " where tw_storing.Name LIKE '%" + keyword + "%'";
                 }
                 outDataSet = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, clause, null);
                 return true;
@@ -584,7 +621,44 @@ namespace TinyMSGW.Adapter
                 return false;
             }
         }
-        
+
+        public bool RetrieveStoringBook(Warehouse w, string isbn, out StoringBook outBook)
+        {
+            try
+            {
+                string clause = "select * from tw_storing where tw_storing.ISBN = '" + isbn +
+                    "' and tw_storing.WarehouseID = " + w.WarehouseID;
+                DataTable resDt = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, clause, null).Tables[0];
+                if (resDt.Rows.Count > 0)
+                {
+                    var bObj = resDt.Rows[0];
+                    StoringBook retObj = new StoringBook()
+                    {
+                        ISBN = isbn,
+                        Author = (string)bObj["Author"],
+                        Name = (string)bObj["Name"],
+                        Type = (string)bObj["Type"],
+                        PublishYear = (int)bObj["PublishYear"],
+                        Value = (double)bObj["Value"],
+                        WarehouseID = (int)bObj["WarehouseID"],
+                        NumberOfWarehouse = (int)bObj["NumberOfWarehouse"]
+                    };
+                    outBook = retObj;
+                }
+                else
+                {
+                    outBook = null;
+                }
+                return true;
+            }
+            catch (Exception e)
+            {
+                outBook = null;
+                LogUtil.Log("ERROR: When retrieve storing book: " + e.ToString());
+                return false;
+            }
+        }
+
         public bool RetrieveUser(string username, out Dictionary<string, string> descriptor)
         {
             try

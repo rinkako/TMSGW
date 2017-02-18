@@ -50,5 +50,11 @@ namespace TinyMSGW.Entity
         /// </summary>
         [DefaultValue(0)]
         public int PublishYear { get; set; }
+
+        /// <summary>
+        /// 获取或设置书的价值
+        /// </summary>
+        [DefaultValue(0)]
+        public double Value { get; set; }
     }
 }

@@ -127,6 +127,12 @@
     <Compile Include="Forms\ReturnDaySettingForm.Designer.cs">
       <DependentUpon>ReturnDaySettingForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\StoringBookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StoringBookForm.Designer.cs">
+      <DependentUpon>StoringBookForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\UserAddEditForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -199,6 +205,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\ReturnDaySettingForm.resx">
       <DependentUpon>ReturnDaySettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StoringBookForm.resx">
+      <DependentUpon>StoringBookForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\UserAddEditForm.resx">
       <DependentUpon>UserAddEditForm.cs</DependentUpon>

@@ -58,6 +58,7 @@ namespace TinyMSGW.Forms
             this.adapter.LoginSuccess(this.textBox1.Text);
             // 跳转到主页面
             Forms.MainForm mf = new MainForm();
+            mf.ReSizeWindowByType();
             mf.Show(this);
             this.Hide();
         }

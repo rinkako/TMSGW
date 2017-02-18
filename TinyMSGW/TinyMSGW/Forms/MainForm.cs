@@ -31,26 +31,36 @@ namespace TinyMSGW.Forms
             this.label1.Text = String.Format("欢迎你，{0}：", GlobalDataPackage.CurrentUser.UserName, 
                 GlobalDataPackage.CurrentUser.Type == Enums.UserType.Customer ? "" : " (" +
                 Utils.CommonUtil.ParseUserETypeToCString(GlobalDataPackage.CurrentUser.Type) + ")");
+            this.ReSizeWindowByType();
+        }
+
+        /// <summary>
+        /// 按照登陆的用户类型重画窗体尺寸
+        /// </summary>
+        public void ReSizeWindowByType()
+        {
             switch (GlobalDataPackage.CurrentUser.Type)
             {
                 case Enums.UserType.Librarian:
                     this.groupBox1.Visible = true;
                     this.groupBox2.Visible = false;
-                    this.Height = 395;
+                    this.Height = 450;
                     break;
                 case Enums.UserType.Keeper:
                     this.groupBox2.Location = this.groupBox1.Location;
                     this.groupBox1.Visible = false;
                     this.groupBox2.Visible = true;
-                    this.Height = 395;
+                    this.Height = 450;
                     break;
                 case Enums.UserType.Admin:
                     this.groupBox1.Visible = this.groupBox2.Visible = this.groupBox3.Visible = true;
+                    this.Height = 625;
                     break;
                 default:
-                    this.Height = 290;
+                    this.Height = 333;
                     break;
             }
+            this.Width = 468;
         }
 
         /// <summary>
@@ -170,11 +180,12 @@ namespace TinyMSGW.Forms
         }
 
         /// <summary>
-        /// 按钮：查看所有库存
+        /// 按钮：管理库存
         /// </summary>
         private void button16_Click(object sender, EventArgs e)
         {
-
+            StoringBookForm sbf = new StoringBookForm();
+            sbf.ShowDialog(this);
         }
     }
 }

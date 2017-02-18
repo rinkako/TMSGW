@@ -405,5 +405,10 @@ namespace TinyMSGW.Adapter
         {
             throw new NotImplementedException();
         }
+
+        public bool RetrieveStoringBook(Warehouse w, string isbn, out StoringBook outBook)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
