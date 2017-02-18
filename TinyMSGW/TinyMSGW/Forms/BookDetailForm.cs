@@ -27,7 +27,8 @@ namespace TinyMSGW.Forms
         /// 构造器
         /// </summary>
         /// <param name="isbn">要查询的书籍的ISBN</param>
-        public BookDetailForm(string isbn)
+        /// <param name="readOnly">是否不可租借</param>
+        public BookDetailForm(string isbn, bool readOnly)
         {
             InitializeComponent();
             // 读取图书数据
@@ -48,6 +49,11 @@ namespace TinyMSGW.Forms
             if (this.bk.NumberInLibrary - this.bk.NumberInRenting == 0)
             {
                 this.button2.Enabled = false;
+            }
+            // 信息阅读模式不显示借书按钮
+            if (readOnly == true)
+            {
+                this.button2.Visible = false;
             }
             // 把焦点放在放回
             this.textBox1.SelectedText = String.Empty;

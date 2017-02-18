@@ -95,8 +95,9 @@ namespace TinyMSGW.Adapter
         /// 柜员将一种书加到图书馆中
         /// </summary>
         /// <param name="descriptor">待添加的书的描述子</param>
+        /// <param name="numberToAdd">数量</param>
         /// <returns>操作成功与否</returns>
-        bool LibrarianAddBook(Book descriptor);
+        bool LibrarianAddBook(Book descriptor, int numberToAdd);
 
         /// <summary>
         /// 柜员将一种书从图书馆中下架并抛弃
@@ -181,9 +182,10 @@ namespace TinyMSGW.Adapter
         /// 列出所有库存图书
         /// </summary>
         /// <param name="w">要查询的仓库</param>
+        /// <param name="keyword">查询关键字</param>
         /// <param name="outDataSet">[out] 要传出的数据集</param>
         /// <returns>操作成功与否</returns>
-        bool ListAllStoringBook(Warehouse w, out object outDataSet);
+        bool ListAllStoringBook(Warehouse w, string keyword, out object outDataSet);
 
         /// <summary>
         /// 列出用户所借所有图书

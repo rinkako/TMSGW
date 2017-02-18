@@ -231,7 +231,7 @@ namespace TinyMSGW.Adapter
             return false;
         }
 
-        public bool LibrarianAddBook(Book descriptor)
+        public bool LibrarianAddBook(Book descriptor, int numberToAdd)
         {
             Book libBook = this.libMana.GetBook(descriptor.ISBN);
             // 该书初次入库要建立记录
@@ -262,7 +262,7 @@ namespace TinyMSGW.Adapter
                 libBook.Name = descriptor.Name;
                 libBook.LocationOfLibrary = descriptor.LocationOfLibrary;
                 // 增加上架数量，不改变借出量
-                libBook.NumberInLibrary = libBook.NumberInLibrary + descriptor.NumberInLibrary;
+                libBook.NumberInLibrary = libBook.NumberInLibrary + numberToAdd;
                 libBook.Value = descriptor.Value;
                 libBook.IsRemoved = false;
                 libBook.PublishYear = descriptor.PublishYear;
@@ -376,7 +376,7 @@ namespace TinyMSGW.Adapter
             throw new NotImplementedException();
         }
 
-        public bool ListAllStoringBook(Warehouse w, out object outDataSet)
+        public bool ListAllStoringBook(Warehouse w, string keyword, out object outDataSet)
         {
             throw new NotImplementedException();
         }

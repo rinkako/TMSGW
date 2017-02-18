@@ -26,19 +26,8 @@ namespace TinyMSGW.Forms
         /// </summary>
         public MainForm()
         {
-            
-
-            // DEBUG
-            //GlobalDataPackage.CurrentUser = new Entity.User()
-            //{
-            //    UserName = "MyAdmin",
-            //    Type = Enums.UserType.Admin
-            //};
-
-            InitializeComponent();
-            
-            
             // 根据用户的权限修改窗体控件的可访问性和可视效果
+            InitializeComponent();
             this.label1.Text = String.Format("欢迎你，{0}：", GlobalDataPackage.CurrentUser.UserName, 
                 GlobalDataPackage.CurrentUser.Type == Enums.UserType.Customer ? "" : " (" +
                 Utils.CommonUtil.ParseUserETypeToCString(GlobalDataPackage.CurrentUser.Type) + ")");
@@ -69,7 +58,7 @@ namespace TinyMSGW.Forms
         /// </summary>
         private void button1_Click(object sender, EventArgs e)
         {
-            RetrieveBookForm rbf = new RetrieveBookForm();
+            RetrieveBookForm rbf = new RetrieveBookForm(false);
             rbf.Show(this);
             this.Hide();
         }
@@ -169,6 +158,23 @@ namespace TinyMSGW.Forms
             // 通用用户管理界面
             UserManageForm umf = new UserManageForm();
             umf.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 按钮：图书管理
+        /// </summary>
+        private void button8_Click(object sender, EventArgs e)
+        {
+            RetrieveBookForm rbf = new RetrieveBookForm(true);
+            rbf.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 按钮：查看所有库存
+        /// </summary>
+        private void button16_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -55,6 +55,12 @@
     <Compile Include="Entity\StoringBook.cs" />
     <Compile Include="Enums\RunTypeEnum.cs" />
     <Compile Include="Enums\UserTypeEnum.cs" />
+    <Compile Include="Forms\AddBookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddBookForm.Designer.cs">
+      <DependentUpon>AddBookForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\BookDetailForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -155,6 +161,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\DBUtil.cs" />
     <Compile Include="Utils\LocalIOUtil.cs" />
+    <EmbeddedResource Include="Forms\AddBookForm.resx">
+      <DependentUpon>AddBookForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\BookDetailForm.resx">
       <DependentUpon>BookDetailForm.cs</DependentUpon>
     </EmbeddedResource>

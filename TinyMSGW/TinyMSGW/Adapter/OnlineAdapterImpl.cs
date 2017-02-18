@@ -209,42 +209,159 @@ namespace TinyMSGW.Adapter
 
         public bool KeeperAddBook(Warehouse whouse, Book descriptor, int numberToStore, out StoringBook sbook)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string bookClause = "select * from tw_storing where tw_storing.ISBN = " + descriptor.ISBN;
+                var bookDS = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, bookClause, null);
+                // 如果已有记录就改变，否则插入
+                string updateClause;
+                if (bookDS.Tables[0].Rows.Count > 0)
+                {
+                    updateClause = "update tw_storing set tw_storing.NumberOfWarehouse = tw_storing.NumberOfWarehouse + " + numberToStore +
+                        " where tw_storing.ISBN = " + descriptor.ISBN;
+                }
+                else
+                {
+                    updateClause = "insert into tw_storing (ISBN, Name, Author, Type, Value, PublishYear, NumberOfWarehouse, WarehouseID) values (" +
+                        descriptor.ISBN + ", '" + descriptor.Name + "', '" + descriptor.Author + "', '" + descriptor.Type + "', " +
+                        descriptor.Value + ", " + descriptor.PublishYear + ", " + numberToStore + ", " + whouse.WarehouseID + ")";
+                }
+                DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, updateClause, null);
+                sbook = new StoringBook()
+                {
+                    WarehouseID = whouse.WarehouseID,
+                    Name = descriptor.Name,
+                    PublishYear = descriptor.PublishYear,
+                    Type = descriptor.Type,
+                    Author = descriptor.Author,
+                    ISBN = descriptor.ISBN,
+                    NumberOfWarehouse = numberToStore,
+                };
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: Keeper Add Book failed: " + e.ToString());
+                sbook = null;
+                return false;
+            }
         }
 
         public bool KeeperRemoveBook(Warehouse whouse, StoringBook sbook)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string updateClause = "delete from tw_storing where tw_storing.ISBN = " + sbook.ISBN;
+                DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, updateClause, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: Keeper Remove Book Failed: " + e.ToString());
+                return false;
+            }
         }
 
         public bool KeeperShopBook(Warehouse whouse, StoringBook sbook, int number)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string updateClause = "update tw_storing set tw_storing.NumberOfWarehouse = NumberOfWarehouse - " + number +
+                    " where tw_storing.ISBN = " + sbook.ISBN;
+                DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, updateClause, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: Keeper Shop Book Failed: " + e.ToString());
+                return false;
+            }
         }
 
-        public bool LibrarianAddBook(Book descriptor)
+        public bool LibrarianAddBook(Book descriptor, int numberToAdd)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string bookClause = "select * from tw_book where tw_book.ISBN = " + descriptor.ISBN;
+                var bookDS = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, bookClause, null);
+                // 如果已有记录就改变，否则插入
+                string updateClause;
+                if (bookDS.Tables[0].Rows.Count > 0)
+                {
+                    updateClause = "update tw_book set tw_book.NumberInLibrary = tw_book.NumberInLibrary + " + numberToAdd +
+                        " where tw_book.ISBN = " + descriptor.ISBN;
+                }
+                else
+                {
+                    updateClause = "insert into tw_book (ISBN, Name, Author, Type, Value, PublishYear, LocationOfLibrary, StoreIntoLibraryTimestamp, NumberInLibrary, NumberInRenting) values (" +
+                        descriptor.ISBN + ", '" + descriptor.Name + "', '" + descriptor.Author + "', '" + descriptor.Type + "', " + descriptor.Value + ", " +
+                        descriptor.PublishYear + ", '" + descriptor.LocationOfLibrary + "', '" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") + "', " +
+                        descriptor.NumberInLibrary + ", 0)";
+                }
+                DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, updateClause, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: Librarian Add Book Failed: " + e.ToString());
+                return false;
+            }
         }
 
         public bool LibrarianRecieveDelayFee(Usercard card)
         {
-            throw new NotImplementedException();
+            // 恒为TRUE
+            return true;
         }
 
         public bool LibrarianRemoveBook(Book book)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string updateClause = "delete from tw_book where tw_book.ISBN = " + book.ISBN;
+                DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, updateClause, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: Librarian Remove Book Failed: " + e.ToString());
+                return false;
+            }
         }
 
         public bool LibrarianRestoreBook(Book book)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string bookClause = "select * from tw_book where tw_book.ISBN = " + book.ISBN;
+                var bookDS = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, bookClause, null);
+                var rowItem = bookDS.Tables[0].Rows[0];
+                var nRent = (int)rowItem["NumberInRenting"];
+                string updateClause = "update tw_book set tw_book.NumberInLibrary = " + nRent + " where tw_book.ISBN = " + book.ISBN;     
+                DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, updateClause, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: Librarian Restore Book failed: " + e.ToString());
+                return false;
+            }
         }
 
         public bool ListAllBook(out object outDataSet)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string clause = "select * from ((select ISBN, Name, Author, Type, PublishYear from tw_book where tw_book.NumberInLibrary != 0) union (select ISBN, Name, Author, Type, PublishYear from tw_storing where tw_storing.NumberOfWarehouse != 0)) distinct";
+                outDataSet = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, clause, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: List all book failed: " + e.ToString());
+                outDataSet = null;
+                return false;
+            }
         }
 
         public bool ListAllLibraryBook(out object outDataSet, string keyword, string type)
@@ -326,9 +443,24 @@ namespace TinyMSGW.Adapter
             }
         }
 
-        public bool ListAllStoringBook(Warehouse w, out object outDataSet)
+        public bool ListAllStoringBook(Warehouse w, string keyword, out object outDataSet)
         {
-            throw new NotImplementedException();
+            try
+            {
+                string clause = "select * from tw_storing";
+                if (keyword != String.Empty)
+                {
+                    clause += " where tw_book.Name LIKE '%" + keyword + "%'";
+                }
+                outDataSet = DBUtil.CommitToDB(DBUtil.Conn, CommandType.Text, clause, null);
+                return true;
+            }
+            catch (Exception e)
+            {
+                LogUtil.Log("ERROR: " + e.ToString());
+                outDataSet = null;
+                return false;
+            }
         }
 
         public bool ListAllUser(out object outDataSet, string keyword)

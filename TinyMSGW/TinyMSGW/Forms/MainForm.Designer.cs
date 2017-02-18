@@ -37,23 +37,18 @@
             this.button12 = new System.Windows.Forms.Button();
             this.button9 = new System.Windows.Forms.Button();
             this.button8 = new System.Windows.Forms.Button();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.button16 = new System.Windows.Forms.Button();
-            this.button17 = new System.Windows.Forms.Button();
-            this.button18 = new System.Windows.Forms.Button();
-            this.button19 = new System.Windows.Forms.Button();
-            this.button20 = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.button13 = new System.Windows.Forms.Button();
             this.button15 = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
             this.button21 = new System.Windows.Forms.Button();
+            this.button16 = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.button20 = new System.Windows.Forms.Button();
+            this.button19 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -114,9 +109,6 @@
             this.groupBox1.Controls.Add(this.button12);
             this.groupBox1.Controls.Add(this.button9);
             this.groupBox1.Controls.Add(this.button8);
-            this.groupBox1.Controls.Add(this.button7);
-            this.groupBox1.Controls.Add(this.button6);
-            this.groupBox1.Controls.Add(this.button5);
             this.groupBox1.Location = new System.Drawing.Point(15, 246);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(422, 100);
@@ -137,7 +129,7 @@
             // 
             // button9
             // 
-            this.button9.Location = new System.Drawing.Point(214, 20);
+            this.button9.Location = new System.Drawing.Point(162, 20);
             this.button9.Name = "button9";
             this.button9.Size = new System.Drawing.Size(97, 68);
             this.button9.TabIndex = 4;
@@ -147,99 +139,13 @@
             // 
             // button8
             // 
-            this.button8.Location = new System.Drawing.Point(111, 57);
+            this.button8.Location = new System.Drawing.Point(6, 20);
             this.button8.Name = "button8";
-            this.button8.Size = new System.Drawing.Size(97, 31);
+            this.button8.Size = new System.Drawing.Size(97, 68);
             this.button8.TabIndex = 3;
-            this.button8.Text = "修改图书信息";
+            this.button8.Text = "图书管理";
             this.button8.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(111, 20);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(97, 31);
-            this.button7.TabIndex = 2;
-            this.button7.Text = "查询图书信息";
-            this.button7.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(6, 57);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(97, 31);
-            this.button6.TabIndex = 1;
-            this.button6.Text = "下架图书";
-            this.button6.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(6, 20);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(97, 31);
-            this.button5.TabIndex = 0;
-            this.button5.Text = "上架图书";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.button16);
-            this.groupBox2.Controls.Add(this.button17);
-            this.groupBox2.Controls.Add(this.button18);
-            this.groupBox2.Controls.Add(this.button19);
-            this.groupBox2.Controls.Add(this.button20);
-            this.groupBox2.Location = new System.Drawing.Point(15, 352);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(422, 100);
-            this.groupBox2.TabIndex = 8;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "库管功能";
-            this.groupBox2.Visible = false;
-            // 
-            // button16
-            // 
-            this.button16.Location = new System.Drawing.Point(317, 20);
-            this.button16.Name = "button16";
-            this.button16.Size = new System.Drawing.Size(97, 68);
-            this.button16.TabIndex = 4;
-            this.button16.Text = "查看所有库存";
-            this.button16.UseVisualStyleBackColor = true;
-            // 
-            // button17
-            // 
-            this.button17.Location = new System.Drawing.Point(162, 57);
-            this.button17.Name = "button17";
-            this.button17.Size = new System.Drawing.Size(97, 31);
-            this.button17.TabIndex = 3;
-            this.button17.Text = "扔掉";
-            this.button17.UseVisualStyleBackColor = true;
-            // 
-            // button18
-            // 
-            this.button18.Location = new System.Drawing.Point(162, 20);
-            this.button18.Name = "button18";
-            this.button18.Size = new System.Drawing.Size(97, 31);
-            this.button18.TabIndex = 2;
-            this.button18.Text = "修改库存信息";
-            this.button18.UseVisualStyleBackColor = true;
-            // 
-            // button19
-            // 
-            this.button19.Location = new System.Drawing.Point(6, 57);
-            this.button19.Name = "button19";
-            this.button19.Size = new System.Drawing.Size(97, 31);
-            this.button19.TabIndex = 1;
-            this.button19.Text = "出库";
-            this.button19.UseVisualStyleBackColor = true;
-            // 
-            // button20
-            // 
-            this.button20.Location = new System.Drawing.Point(6, 20);
-            this.button20.Name = "button20";
-            this.button20.Size = new System.Drawing.Size(97, 31);
-            this.button20.TabIndex = 0;
-            this.button20.Text = "入库";
-            this.button20.UseVisualStyleBackColor = true;
+            this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // groupBox3
             // 
@@ -295,6 +201,47 @@
             this.button21.UseVisualStyleBackColor = true;
             this.button21.Click += new System.EventHandler(this.button21_Click);
             // 
+            // button16
+            // 
+            this.button16.Location = new System.Drawing.Point(317, 20);
+            this.button16.Name = "button16";
+            this.button16.Size = new System.Drawing.Size(97, 68);
+            this.button16.TabIndex = 4;
+            this.button16.Text = "查看所有库存";
+            this.button16.UseVisualStyleBackColor = true;
+            this.button16.Click += new System.EventHandler(this.button16_Click);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.button16);
+            this.groupBox2.Controls.Add(this.button19);
+            this.groupBox2.Controls.Add(this.button20);
+            this.groupBox2.Location = new System.Drawing.Point(15, 352);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(422, 100);
+            this.groupBox2.TabIndex = 8;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "库管功能";
+            this.groupBox2.Visible = false;
+            // 
+            // button20
+            // 
+            this.button20.Location = new System.Drawing.Point(6, 20);
+            this.button20.Name = "button20";
+            this.button20.Size = new System.Drawing.Size(97, 68);
+            this.button20.TabIndex = 0;
+            this.button20.Text = "入库";
+            this.button20.UseVisualStyleBackColor = true;
+            // 
+            // button19
+            // 
+            this.button19.Location = new System.Drawing.Point(162, 20);
+            this.button19.Name = "button19";
+            this.button19.Size = new System.Drawing.Size(97, 68);
+            this.button19.TabIndex = 1;
+            this.button19.Text = "出库";
+            this.button19.UseVisualStyleBackColor = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -314,8 +261,8 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Tiny图书馆管理系统";
             this.groupBox1.ResumeLayout(false);
-            this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
+            this.groupBox2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,19 +279,14 @@
         private System.Windows.Forms.Button button12;
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Button button7;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button16;
-        private System.Windows.Forms.Button button17;
-        private System.Windows.Forms.Button button18;
-        private System.Windows.Forms.Button button19;
-        private System.Windows.Forms.Button button20;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button button13;
         private System.Windows.Forms.Button button15;
         private System.Windows.Forms.Button button25;
         private System.Windows.Forms.Button button21;
+        private System.Windows.Forms.Button button16;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button button19;
+        private System.Windows.Forms.Button button20;
     }
 }
