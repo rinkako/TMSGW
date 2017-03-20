@@ -60,5 +60,15 @@ namespace TinyMSGW.Forms
         /// 适配器
         /// </summary>
         IActionAdapter adapter = AdapterFactory.GetAdapter();
+
+        /// <summary>
+        /// 按钮：自助注册
+        /// </summary>
+        private void button3_Click(object sender, EventArgs e)
+        {
+            RegisterForm rfrm = new RegisterForm();
+            rfrm.Show(this);
+            this.Hide();
+        }
     }
 }
