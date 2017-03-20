@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 
@@ -29,12 +28,14 @@ namespace TinyMSGW.Utils
         /// <returns>对应原字串的SHA1串</returns>
         public static string EncryptToSHA1(string parStr)
         {
-            SHA1CryptoServiceProvider sha1 = new SHA1CryptoServiceProvider();
-            byte[] str1 = Encoding.UTF8.GetBytes(parStr);
-            byte[] str2 = sha1.ComputeHash(str1);
-            sha1.Clear();
-            (sha1 as IDisposable).Dispose();
-            return Convert.ToBase64String(str2);
+            var buffer = Encoding.UTF8.GetBytes(parStr);
+            var data = SHA1.Create().ComputeHash(buffer);
+            var sb = new StringBuilder();
+            foreach (var t in data)
+            {
+                sb.Append(t.ToString("X2"));
+            }
+            return sb.ToString();
         }
 
         /// <summary>

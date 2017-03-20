@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using TinyMSGW.Adapter;
 
@@ -16,13 +10,18 @@ namespace TinyMSGW.Forms
     public partial class LoginForm : Form
     {
         /// <summary>
+        /// 适配器
+        /// </summary>
+        IActionAdapter adapter = AdapterFactory.GetAdapter();
+
+        /// <summary>
         /// 构造器
         /// </summary>
         public LoginForm()
         {
             InitializeComponent();
         }
-
+        
         /// <summary>
         /// 按钮：取消
         /// </summary>
@@ -47,28 +46,32 @@ namespace TinyMSGW.Forms
             if (allowFlag == false)
             {
                 MessageBox.Show("用户名或密码不正确", "提示", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
             }
             // 登陆成功
             this.adapter.LoginSuccess(this.textBox1.Text);
             // 跳转到主页面
             Forms.MainForm mf = new MainForm();
+            mf.ReSizeWindowByType();
             mf.Show(this);
             this.Hide();
         }
 
         /// <summary>
-        /// 适配器
-        /// </summary>
-        IActionAdapter adapter = AdapterFactory.GetAdapter();
-
-        /// <summary>
-        /// 按钮：自助注册
+        /// 按钮：注册
         /// </summary>
         private void button3_Click(object sender, EventArgs e)
         {
-            RegisterForm rfrm = new RegisterForm();
-            rfrm.Show(this);
-            this.Hide();
+            RegisterForm rf = new RegisterForm();
+            rf.ShowDialog(this);
+        }
+
+        /// <summary>
+        /// 事件：用户名输入改动
+        /// </summary>
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            this.textBox2.Text = String.Empty;
         }
     }
 }

@@ -51,6 +51,12 @@ namespace TinyMSGW.Entity
         /// </summary>
         [DefaultValue(null)]
         public Usercard Card { get; set; }
+
+        /// <summary>
+        /// 获取或设置用户借书卡ID
+        /// </summary>
+        [DefaultValue(-1)]
+        public int CardID { get; set; }
     }
 
 

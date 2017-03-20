@@ -55,6 +55,24 @@
     <Compile Include="Entity\StoringBook.cs" />
     <Compile Include="Enums\RunTypeEnum.cs" />
     <Compile Include="Enums\UserTypeEnum.cs" />
+    <Compile Include="Forms\AddBookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\AddBookForm.Designer.cs">
+      <DependentUpon>AddBookForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\BookDetailForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\BookDetailForm.Designer.cs">
+      <DependentUpon>BookDetailForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\DelayFeeSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\DelayFeeSettingForm.Designer.cs">
+      <DependentUpon>DelayFeeSettingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,11 +85,65 @@
     <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Forms\OtherSettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\OtherSettingForm.Designer.cs">
+      <DependentUpon>OtherSettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\PayLostForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\PayLostForm.Designer.cs">
+      <DependentUpon>PayLostForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\RegisterForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Forms\RegisterForm.Designer.cs">
       <DependentUpon>RegisterForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RentlogForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RentlogForm.Designer.cs">
+      <DependentUpon>RentlogForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\RetrieveBookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\RetrieveBookForm.Designer.cs">
+      <DependentUpon>RetrieveBookForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ReturnBookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReturnBookForm.Designer.cs">
+      <DependentUpon>ReturnBookForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\ReturnDaySettingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\ReturnDaySettingForm.Designer.cs">
+      <DependentUpon>ReturnDaySettingForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\StoringBookForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\StoringBookForm.Designer.cs">
+      <DependentUpon>StoringBookForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserAddEditForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UserAddEditForm.Designer.cs">
+      <DependentUpon>UserAddEditForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\UserManageForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\UserManageForm.Designer.cs">
+      <DependentUpon>UserManageForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Utils\CommonUtil.cs" />
     <Compile Include="Utils\IniUtil.cs" />
@@ -95,6 +167,15 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\DBUtil.cs" />
     <Compile Include="Utils\LocalIOUtil.cs" />
+    <EmbeddedResource Include="Forms\AddBookForm.resx">
+      <DependentUpon>AddBookForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\BookDetailForm.resx">
+      <DependentUpon>BookDetailForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\DelayFeeSettingForm.resx">
+      <DependentUpon>DelayFeeSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\FirstForm.resx">
       <DependentUpon>FirstForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -104,8 +185,35 @@
     <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Forms\OtherSettingForm.resx">
+      <DependentUpon>OtherSettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\PayLostForm.resx">
+      <DependentUpon>PayLostForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\RegisterForm.resx">
       <DependentUpon>RegisterForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RentlogForm.resx">
+      <DependentUpon>RentlogForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\RetrieveBookForm.resx">
+      <DependentUpon>RetrieveBookForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReturnBookForm.resx">
+      <DependentUpon>ReturnBookForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\ReturnDaySettingForm.resx">
+      <DependentUpon>ReturnDaySettingForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\StoringBookForm.resx">
+      <DependentUpon>StoringBookForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserAddEditForm.resx">
+      <DependentUpon>UserAddEditForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\UserManageForm.resx">
+      <DependentUpon>UserManageForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

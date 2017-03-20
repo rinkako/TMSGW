@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using TinyMSGW.ViewModel;
 using TinyMSGW.Entity;
 using TinyMSGW.Utils;
@@ -119,20 +118,6 @@ namespace TinyMSGW.Adapter
             return false;
         }
 
-        public bool CustomerMissAndPayForBook(User user, Book book, out double pay)
-        {
-            // 注销借书记录
-            Usercard ucard = user.Card;
-            RentLog rlog = ucard.BorrowingList.Find((x) => x.RentBookISBN == book.ISBN);
-            // 直接记为按时归还
-            rlog.ActualReturnTimestamp = rlog.OughtReturnTimestamp;
-            // 书的借出计数少一，但库存不增加
-            book.NumberInRenting--;
-            // 输出需要赔偿的价钱
-            pay = book.Value;
-            return true;
-        }
-
         public bool DeleteUser(User user)
         {
             // 权限检查
@@ -245,7 +230,7 @@ namespace TinyMSGW.Adapter
             return false;
         }
 
-        public bool LibrarianAddBook(Book descriptor)
+        public bool LibrarianAddBook(Book descriptor, int numberToAdd)
         {
             Book libBook = this.libMana.GetBook(descriptor.ISBN);
             // 该书初次入库要建立记录
@@ -276,7 +261,7 @@ namespace TinyMSGW.Adapter
                 libBook.Name = descriptor.Name;
                 libBook.LocationOfLibrary = descriptor.LocationOfLibrary;
                 // 增加上架数量，不改变借出量
-                libBook.NumberInLibrary = libBook.NumberInLibrary + descriptor.NumberInLibrary;
+                libBook.NumberInLibrary = libBook.NumberInLibrary + numberToAdd;
                 libBook.Value = descriptor.Value;
                 libBook.IsRemoved = false;
                 libBook.PublishYear = descriptor.PublishYear;
@@ -348,12 +333,6 @@ namespace TinyMSGW.Adapter
             GDP.CurrentUser = null;
             return true;
         }
-  
-        public bool RetrieveDelayFee(Usercard card, out double fee)
-        {
-            fee = card.DelayFee;
-            return true;
-        }
 
         public bool RetrieveUser(string username, out Dictionary<string, string> descriptor)
         {
@@ -389,6 +368,46 @@ namespace TinyMSGW.Adapter
         public bool WriteDataToStableStorage()
         {
             return LocalIOUtil.Serialization(libMana.GetLibraryInstance(), LocalIOUtil.ParseURItoURL(GDP.DataFileName, true));
+        }
+
+        public bool ListAllLibraryBook(out object outDataSet, string keyword, string type)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ListAllStoringBook(Warehouse w, string keyword, out object outDataSet)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ListAllBook(out object outDataSet)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ListUser(UserType utype, out object outDataSet)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ListAllUser(out object outDataSet, string keyword)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RetrieveBook(string isbn, out Book outBook)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool ListAllRentingBook(string username, bool allFlag, out List<Book> outList, out List<RentLog> logList)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool RetrieveStoringBook(Warehouse w, string isbn, out StoringBook outBook)
+        {
+            throw new NotImplementedException();
         }
     }
 }

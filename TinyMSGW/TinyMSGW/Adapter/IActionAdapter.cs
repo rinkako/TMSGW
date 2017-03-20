@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using TinyMSGW.Entity;
 using TinyMSGW.Enums;
 
@@ -45,15 +42,6 @@ namespace TinyMSGW.Adapter
         /// <param name="card">[out] 办理得到的借书卡</param>
         /// <returns>操作成功与否</returns>
         bool CustomerHandleUsercard(User user, out Usercard card);
-
-        /// <summary>
-        /// 客户丢失了一本书并进行赔偿
-        /// </summary>
-        /// <param name="user">要处理的用户</param>
-        /// <param name="book">丢失的书籍</param>
-        /// <param name="pay">[out] 需要付的钱</param>
-        /// <returns>操作成功与否</returns>
-        bool CustomerMissAndPayForBook(User user, Book book, out double pay);
         #endregion
 
         #region 管理员动作
@@ -104,8 +92,9 @@ namespace TinyMSGW.Adapter
         /// 柜员将一种书加到图书馆中
         /// </summary>
         /// <param name="descriptor">待添加的书的描述子</param>
+        /// <param name="numberToAdd">数量</param>
         /// <returns>操作成功与否</returns>
-        bool LibrarianAddBook(Book descriptor);
+        bool LibrarianAddBook(Book descriptor, int numberToAdd);
 
         /// <summary>
         /// 柜员将一种书从图书馆中下架并抛弃
@@ -162,20 +151,80 @@ namespace TinyMSGW.Adapter
 
         #region 公共动作
         /// <summary>
-        /// 获取一张借书卡的滞纳金
-        /// </summary>
-        /// <param name="card">要查询的借书卡</param>
-        /// <param name="fee">[out] 滞纳金</param>
-        /// <returns>操作成功与否</returns>
-        bool RetrieveDelayFee(Usercard card, out double fee);
-
-        /// <summary>
         /// 修改一本书的信息
         /// </summary>
         /// <param name="book">要改的书</param>
         /// <param name="newbookDescriptor">要将第一个参数的书改成形如这个的书</param>
         /// <returns>操作成功与否</returns>
         bool EditBook(Book book, Book newbookDescriptor);
+
+        /// <summary>
+        /// 获取一本书的信息
+        /// </summary>
+        /// <param name="isbn">要查询的图书的ISBN</param>
+        /// <param name="outBook">[out] 查询到的图书实例</param>
+        /// <returns>操作成功与否</returns>
+        bool RetrieveBook(string isbn, out Book outBook);
+
+        /// <summary>
+        /// 获取一本库存书的信息
+        /// </summary>
+        /// <param name="w">要查询的仓库</param>
+        /// <param name="isbn">要查询的图书的ISBN</param>
+        /// <param name="outBook">[out] 查询到的图书实例</param>
+        /// <returns>操作成功与否</returns>
+        bool RetrieveStoringBook(Warehouse w, string isbn, out StoringBook outBook);
+
+        /// <summary>
+        /// 列出所有上架图书
+        /// </summary>
+        /// <param name="outDataSet">[out] 要传出的数据集</param>
+        /// <param name="keyword">查询关键词</param>
+        /// <param name="type">查询类型</param>
+        /// <returns>操作成功与否</returns>
+        bool ListAllLibraryBook(out object outDataSet, string keyword, string type);
+
+        /// <summary>
+        /// 列出所有库存图书
+        /// </summary>
+        /// <param name="w">要查询的仓库</param>
+        /// <param name="keyword">查询关键字</param>
+        /// <param name="outDataSet">[out] 要传出的数据集</param>
+        /// <returns>操作成功与否</returns>
+        bool ListAllStoringBook(Warehouse w, string keyword, out object outDataSet);
+
+        /// <summary>
+        /// 列出用户所借所有图书
+        /// </summary>
+        /// <param name="username">要查询的用户名</param>
+        /// <param name="allFlag">是否列出已还记录</param>
+        /// <param name="outList">[out] 所借书籍向量</param>
+        /// <param name="logList">[out] 对应借书记录向量</param>
+        /// <returns>操作成功与否</returns>
+        bool ListAllRentingBook(string username, bool allFlag, out List<Book> outList, out List<RentLog> logList);
+
+        /// <summary>
+        /// 列出所有图书
+        /// </summary>
+        /// <param name="outDataSet">[out] 要传出的数据集</param>
+        /// <returns>操作成功与否</returns>
+        bool ListAllBook(out object outDataSet);
+
+        /// <summary>
+        /// 列出所有指定类型的用户
+        /// </summary>
+        /// <param name="utype">用户类型</param>
+        /// <param name="outDataSet">[out] 要传出的数据集</param>
+        /// <returns>操作成功与否</returns>
+        bool ListUser(UserType utype, out object outDataSet);
+
+        /// <summary>
+        /// 列出所有用户
+        /// </summary>
+        /// <param name="outDataSet">[out] 要传出的数据集</param>
+        /// <param name="keyword">查询关键字</param>
+        /// <returns>操作成功与否</returns>
+        bool ListAllUser(out object outDataSet, string keyword);
         #endregion
 
         #region 系统的辅助函数

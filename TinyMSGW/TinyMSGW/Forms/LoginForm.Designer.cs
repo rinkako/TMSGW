@@ -85,15 +85,18 @@
             this.textBox2.Location = new System.Drawing.Point(58, 128);
             this.textBox2.Name = "textBox2";
             this.textBox2.PasswordChar = '*';
-            this.textBox2.Size = new System.Drawing.Size(169, 21);
+            this.textBox2.Size = new System.Drawing.Size(153, 21);
             this.textBox2.TabIndex = 7;
+            this.textBox2.Text = "1";
             // 
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(59, 99);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(168, 21);
+            this.textBox1.Size = new System.Drawing.Size(152, 21);
             this.textBox1.TabIndex = 6;
+            this.textBox1.Text = "admin";
+            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // pictureBox1
             // 
@@ -146,9 +149,9 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.Button button3;
+        public System.Windows.Forms.TextBox textBox1;
+        public System.Windows.Forms.TextBox textBox2;
     }
 }

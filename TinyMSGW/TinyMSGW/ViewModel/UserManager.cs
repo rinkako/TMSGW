@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TinyMSGW.ViewModel
+﻿namespace TinyMSGW.ViewModel
 {
     /// <summary>
     /// 控制器类：用户管理器
